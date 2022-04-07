@@ -15,10 +15,10 @@ const MealPlanner = () => {
                 <div className="col-2">
                     <Navigation/>
                 </div>
-                <div className="col-6">
+                <div className="col-7">
                     <Home/>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                 Recommendations
                 </div>
             </div>
