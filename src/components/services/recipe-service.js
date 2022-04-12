@@ -4,7 +4,7 @@ const API_MEAL = 'https://www.themealdb.com/api/json/v1/1/';
 
 export const findMealById = async (id) => {
     const response = await axios.get(`${API_MEAL}/lookup.php?i=${id}`);
-    const meal = response.data
+    const meal = response.data;
     return meal.meals[0];
 };
 

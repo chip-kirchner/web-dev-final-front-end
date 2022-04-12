@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import mealReducer from "./reducers/meal-reducer";
 import Navigation from "./navigation";
 import Home from "./home";
+import Favorites from "./favorites";
 
 const reducer = mealReducer;
 const store = createStore(reducer);
@@ -16,7 +17,7 @@ const MealPlanner = () => {
                     <Navigation/>
                 </div>
                 <div className="col-7">
-                    <Home/>
+                    <Favorites/>
                 </div>
                 <div className="col-3">
                 Recommendations

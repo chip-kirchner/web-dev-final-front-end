@@ -1,4 +1,8 @@
+import {useLocation, Link} from "react-router-dom";
+
 const Navigation = () => {
+    const location = useLocation();
+
     return(
         <div className="list-group">
             <div className="list-group-item">
@@ -34,16 +38,16 @@ const Navigation = () => {
                     </div>
                 </div>
             </div>
-            <div className="list-group-item list-group-item-action">
+            <Link to="/search" className={`list-group-item list-group-item-action ${location.pathname === '/search' ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">
-                        <i className="fas fa-utensils me-3"></i>
+                        <i className="fas fa-search me-3"></i>
                     </div>
                     <div className="d-none d-lg-block col-9 ">
-                        Discover
+                        Search
                     </div>
                 </div>
-            </div>
+            </Link>
             <div className="list-group-item list-group-item-action">
                 <div className="row">
                     <div className="col-12 col-lg-3">
