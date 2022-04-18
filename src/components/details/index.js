@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import * as service from "../services/recipe-service";
+import * as mealService from "../services/recipe-service";
+import * as ourMealService from "../services/our-meal-db-service";
 
 const Details = () => {
     const [meal, setMeal] = useState({});
+    const [dbMeal, setDbMeal] = useState({});
     const {mealID} = useParams();
+
     useEffect(() => {
         const loadMeal = async () => {
-            const newMeal = await service.findMealById(mealID);
+            const newMeal = await mealService.findMealById(mealID);
             setMeal(newMeal);
+            const ourNewMeal = await ourMealService.findRecipeById(mealID);
+            setDbMeal(ourNewMeal);
         };
 
         loadMeal();
@@ -33,7 +37,8 @@ const Details = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <h2 className="float-start">{meal.strMeal}</h2>
                     <span>
-                        <i className="fas fa-heart align-middle text-danger me-3"></i>
+                        <i className="fas fa-heart align-middle text-danger me-1"></i>
+                        <span className="text-muted me-3"> {dbMeal.liked ? dbMeal.liked : 0}</span>
                         <i className="fas fa-calendar align-middle text-primary me-3"></i>
                         <i className="fas fa-plus align-middle me-2"></i>
                     </span>
