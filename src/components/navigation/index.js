@@ -8,16 +8,17 @@ const Navigation = () => {
             <div className="list-group-item">
                 Meal Shopper
             </div>
-            <div className="list-group-item list-group-item-action">
+            <Link to="/"
+                  className={`list-group-item list-group-item-action ${location.pathname ==="/" ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">
-                        <i className="fas fa-calendar me-3"></i>
+                        <i className="fas fa-home me-3"></i>
                     </div>
                     <div className="d-none d-lg-block col-9 ">
-                        My Plan
+                        Home
                     </div>
                 </div>
-            </div>
+            </Link>
             <div className="list-group-item list-group-item-action">
                 <div className="row">
                     <div className="col-12 col-lg-3">
@@ -38,7 +39,7 @@ const Navigation = () => {
                     </div>
                 </div>
             </div>
-            <Link to="/search" className={`list-group-item list-group-item-action ${location.pathname === '/search' ? 'active' : ""}`}>
+            <Link to="/search" className={`list-group-item list-group-item-action ${location.pathname.includes('/search') ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">
                         <i className="fas fa-search me-3"></i>

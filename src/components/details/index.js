@@ -19,18 +19,7 @@ const Details = () => {
         loadMeal();
     }, [mealID]);
 
-    const getIngredients = (meal) => {
-        let toReturn = []
-        let sizes = []
-        for (let i = 0; i < 20; i++) {
-            if (meal[`strIngredient${i+1}`]) {
-                toReturn.push({ingredient: meal[`strIngredient${i+1}`], amount: meal[`strMeasure${i+1}`]});
-            }
-        }
-        return toReturn
-    };
-
-    const ingredients = getIngredients(meal);
+    const ingredients = mealService.getIngredients(meal);
     return(
         <>
             <div className="row">

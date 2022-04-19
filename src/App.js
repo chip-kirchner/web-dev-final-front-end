@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Details from "./components/details";
 import Navigation from "./components/navigation";
 import Search from "./components/search";
+import Home from "./components/home";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
 
                           <Routes>
                               <Route path="/details/:mealID" element={<Details/>}/>
+                              <Route path="/search/:recipeSearch" element={<Search/>}/>
                               <Route path="/search" element={<Search/>}/>
+                              <Route path="" element={<Home/>}/>
                           </Routes>
 
                   </div>

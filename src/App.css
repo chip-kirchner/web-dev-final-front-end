@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.overflow-elps {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
