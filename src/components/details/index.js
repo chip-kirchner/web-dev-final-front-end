@@ -63,15 +63,29 @@ const Details = () => {
                 </span>
 
                 <span className="float-end">
-                    <span className="ms-2 me-2">
-                        <i className="fas fa-link me-2"></i>
-                        Source
-                    </span>
+                    {meal.strSource ?
+                        <a style={{ textDecoration: 'none' }}
+                           href={meal.strSource}
+                           className="ms-2 me-2 text-black">
+                            <i className="fas fa-link me-2"></i>
+                            <strong>Source</strong>
+                        </a>
+                        : <span className="ms-2 me-2 text-muted">
+                            <i className="fas fa-link me-2"></i>
+                            Source
+                        </span>}
                     |
-                    <span className="ms-2">
-                        <i className="fas fa-video me-2"></i>
-                        Watch
-                    </span>
+                    {meal.strYoutube ?
+                        <a style={{ textDecoration: 'none' }}
+                           href={meal.strYoutube}
+                           className="ms-2 me-2 text-black">
+                            <i className="fas fa-link me-2"></i>
+                            <strong>Watch</strong>
+                        </a>
+                        : <span className="ms-2 me-2 text-muted">
+                            <i className="fas fa-link me-2"></i>
+                            Watch
+                        </span>}
                 </span>
             </div>
             <div className="mt-2">

@@ -1,5 +1,6 @@
 import {getIngredients} from "../services/recipe-service";
 import "./style.css";
+import {Link} from "react-router-dom";
 
 
 const defaultRecipe = {
@@ -36,8 +37,10 @@ const RecipeCarousel = ({recipes}) => {
                                      className="d-block w-100 img-fluid" alt={recipe.strMeal}
                                      style={{"width": "800px", "height": "600px", "objectFit": "cover"}}/>
                                 <div className="carousel-caption d-none d-md-block">
-                                    <h5>{recipe.strMeal}</h5>
-                                    <p>{recipe.strArea} {recipe.strCategory} dish with {getIngredients(recipe).length} ingredients.</p>
+                                    <Link to={`/details/${recipe.idMeal}`} style={{ textDecoration: 'none' }} className="text-white">
+                                        <h5>{recipe.strMeal}</h5>
+                                        <p>{recipe.strArea} {recipe.strCategory} dish with {getIngredients(recipe).length} ingredients.</p>
+                                    </Link>
                                 </div>
                             </div>
                     )

@@ -5,6 +5,7 @@ import Details from "./components/details";
 import Navigation from "./components/navigation";
 import Search from "./components/search";
 import Home from "./components/home";
+import LoginScreen from "./components/login-screen";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                               <Route path="/search/:recipeSearch" element={<Search/>}/>
                               <Route path="/search" element={<Search/>}/>
                               <Route path="" element={<Home/>}/>
+                              <Route path="/login" element={<LoginScreen/>}/>
                           </Routes>
 
                   </div>

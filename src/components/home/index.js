@@ -1,8 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {findMealById} from "../actions/meal-actions";
-import CardCarousel from "../recipe-card";
-import RecipeCard from "../recipe-card";
 import RecipeCarousel from "../recipe-carousel";
 import {findRandomMeals} from "../services/recipe-service";
 
