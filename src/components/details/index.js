@@ -14,10 +14,27 @@ const Details = () => {
             setMeal(newMeal);
             const ourNewMeal = await ourMealService.findRecipeById(mealID);
             setDbMeal(ourNewMeal);
+            console.log(ourNewMeal);
         };
 
         loadMeal();
     }, [mealID]);
+
+    const handleLikes = async () => {
+        try {
+            const response = await ourMealService.likeRecipe(meal);
+
+                if (dbMeal.liked) {
+                    setDbMeal({...dbMeal, liked: dbMeal.liked + 1});
+                } else {
+                    setDbMeal({...dbMeal, liked: 1});
+                }
+
+
+        } catch (e) {
+
+        }
+    }
 
     const ingredients = mealService.getIngredients(meal);
     return(
@@ -26,7 +43,7 @@ const Details = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <h2 className="float-start">{meal.strMeal}</h2>
                     <span>
-                        <i className="fas fa-heart align-middle text-danger me-1"></i>
+                        <i onClick={handleLikes} className="fas fa-heart align-middle text-danger me-1"></i>
                         <span className="text-muted me-3"> {dbMeal.liked ? dbMeal.liked : 0}</span>
                         <i className="fas fa-calendar align-middle text-primary me-3"></i>
                         <i className="fas fa-plus align-middle me-2"></i>

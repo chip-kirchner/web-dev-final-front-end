@@ -5,8 +5,15 @@ const Navigation = () => {
 
     return(
         <div className="list-group">
-            <div className="list-group-item">
-                Meal Shopper
+            <div className="list-group-item bg-black text-white text-opacity-75">
+                <div className="row">
+                    <div className="col-12 col-lg-3">
+                        <i className="fas fa-bars me-3"></i>
+                    </div>
+                    <div className="d-none d-lg-block col-9 ">
+                        Menu
+                    </div>
+                </div>
             </div>
             <Link to="/"
                   className={`list-group-item list-group-item-action ${location.pathname ==="/" ? 'active' : ""}`}>
@@ -49,7 +56,7 @@ const Navigation = () => {
                     </div>
                 </div>
             </Link>
-            <div className="list-group-item list-group-item-action">
+            <Link to="/profile" className={`list-group-item list-group-item-action ${location.pathname === '/profile' ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">
                         <i className="fas fa-user me-3"></i>
@@ -58,7 +65,7 @@ const Navigation = () => {
                         Profile
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     )
 };
