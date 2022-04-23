@@ -23,3 +23,8 @@ export const logout = async() => {
     return response.data;
 }
 
+export const updateProfile = async (profile) => {
+    const response = await api.put(`${API_URL}/profile/update`, {profile});
+    return response.data;
+}
+

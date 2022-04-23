@@ -7,6 +7,7 @@ import Home from "./components/home";
 import LoginScreen from "./components/login-screen";
 import Profile from "./components/profile";
 import {ProfileProvider} from "./contexts/profile-context";
+import SecureRoute from "./components/secure-route";
 
 function App() {
   return (
@@ -25,7 +26,11 @@ function App() {
                                   <Route path="/search" element={<Search/>}/>
                                   <Route path="" element={<Home/>}/>
                                   <Route path="/login" element={<LoginScreen/>}/>
-                                  <Route path="/profile" element={<Profile/>}/>
+                                  <Route path="/profile" element={
+                                      <SecureRoute>
+                                          <Profile/>
+                                      </SecureRoute>
+                                  }/>
                               </Routes>
 
                       </div>

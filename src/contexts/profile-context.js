@@ -34,7 +34,16 @@ export const ProfileProvider = ({children}) => {
         }
     }
 
-    const value = {profile, signup, checkLoggedIn, login};
+    const updateProfile = async (profile) => {
+        try {
+            const newProfile = await service.updateProfile(profile);
+            setProfile(newProfile);
+        } catch(e) {
+            throw e;
+        }
+    }
+
+    const value = {profile, signup, checkLoggedIn, login, updateProfile};
 
     return (
         <ProfileContext.Provider value={value}>
