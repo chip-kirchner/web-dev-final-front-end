@@ -2,11 +2,26 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import * as mealService from "../services/recipe-service";
 import * as ourMealService from "../services/our-meal-db-service";
+import {useProfile} from "../../contexts/profile-context";
 
 const Details = () => {
+    const {profile, likeRecipe, checkLoggedIn} = useProfile();
     const [meal, setMeal] = useState({});
     const [dbMeal, setDbMeal] = useState({});
+    const [liked, setLiked] = useState(false);
     const {mealID} = useParams();
+
+    const isLiked = (mealToCheck) => {
+        console.log("here");
+        if (mealToCheck && Object.keys(mealToCheck).length !== 0) {
+
+            if (profile.favoriteRecipes.filter(m => m.idMeal === mealToCheck.idMeal).length > 0) {
+
+                return true;
+            }
+        }
+        return false;
+    }
 
     useEffect(() => {
         const loadMeal = async () => {
@@ -14,25 +29,38 @@ const Details = () => {
             setMeal(newMeal);
             const ourNewMeal = await ourMealService.findRecipeById(mealID);
             setDbMeal(ourNewMeal);
-            console.log(ourNewMeal);
+            try {
+                await checkLoggedIn();
+                const b = isLiked(ourNewMeal);
+                setLiked(b);
+            } catch (e) {
+                //empty
+            }
         };
 
         loadMeal();
     }, [mealID]);
 
     const handleLikes = async () => {
-        try {
-            const response = await ourMealService.likeRecipe(meal);
-
+        if (profile) {
+            try {
+                await likeRecipe(meal);
+                //console.log("here");
                 if (dbMeal.liked) {
-                    setDbMeal({...dbMeal, liked: dbMeal.liked + 1});
+                    if (liked) {
+                        setDbMeal({...dbMeal, liked: dbMeal.liked - 1});
+                        setLiked(false);
+                    } else {
+                        setDbMeal({...dbMeal, liked: dbMeal.liked + 1});
+                        setLiked(true);
+                    }
                 } else {
                     setDbMeal({...dbMeal, liked: 1});
+                    setLiked(true);
                 }
-
-
-        } catch (e) {
-
+            } catch (e) {
+                //empty
+            }
         }
     }
 
@@ -43,7 +71,7 @@ const Details = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <h2 className="float-start">{meal.strMeal}</h2>
                     <span>
-                        <i onClick={handleLikes} className="fas fa-heart align-middle text-danger me-1"></i>
+                        <i onClick={handleLikes} className={`fas fa-heart align-middle ${liked ? "text-danger" : ""} me-1`}></i>
                         <span className="text-muted me-3"> {dbMeal.liked ? dbMeal.liked : 0}</span>
                         <i className="fas fa-calendar align-middle text-primary me-3"></i>
                         <i className="fas fa-plus align-middle me-2"></i>

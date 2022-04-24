@@ -8,6 +8,7 @@ import LoginScreen from "./components/login-screen";
 import Profile from "./components/profile";
 import {ProfileProvider} from "./contexts/profile-context";
 import SecureRoute from "./components/secure-route";
+import Favorites from "./components/favorites";
 
 function App() {
   return (
@@ -29,6 +30,11 @@ function App() {
                                   <Route path="/profile" element={
                                       <SecureRoute>
                                           <Profile/>
+                                      </SecureRoute>
+                                  }/>
+                                  <Route path="/favorites" element={
+                                      <SecureRoute>
+                                          <Favorites/>
                                       </SecureRoute>
                                   }/>
                               </Routes>

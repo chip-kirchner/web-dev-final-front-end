@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import * as service from "../components/services/auth-service";
+import * as mealService from "../components/services/our-meal-db-service";
 
 const ProfileContext = React.createContext();
 
@@ -43,7 +44,21 @@ export const ProfileProvider = ({children}) => {
         }
     }
 
-    const value = {profile, signup, checkLoggedIn, login, updateProfile};
+    const likeRecipe = async (recipe) => {
+        if (profile) {
+            try {
+                const response = await mealService.likeRecipe(recipe);
+                const newProfile = await service.profile();
+                setProfile(newProfile);
+                return;
+            } catch (e) {
+                throw e;
+            }
+        }
+
+    }
+
+    const value = {profile, signup, checkLoggedIn, login, updateProfile, likeRecipe};
 
     return (
         <ProfileContext.Provider value={value}>
