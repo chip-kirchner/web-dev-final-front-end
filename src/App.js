@@ -1,5 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
 import Details from "./components/details";
 import Navigation from "./components/navigation";
 import Search from "./components/search";
@@ -10,40 +12,45 @@ import {ProfileProvider} from "./contexts/profile-context";
 import SecureRoute from "./components/secure-route";
 import Favorites from "./components/favorites";
 import PostScreen from "./components/post-screen";
+import postReducer from "./components/reducers/post-reducer";
+
+const store = createStore(postReducer);
 
 function App() {
   return (
       <div className="container">
           <ProfileProvider>
-              <BrowserRouter>
-                  <div className="row mt-2">
-                      <div className="col-2">
-                          <Navigation/>
-                      </div>
-                      <div className="col-10">
+              <Provider store={store}>
+                  <BrowserRouter>
+                      <div className="row mt-2">
+                          <div className="col-2">
+                              <Navigation/>
+                          </div>
+                          <div className="col-10">
 
-                              <Routes>
-                                  <Route path="/details/:mealID" element={<Details/>}/>
-                                  <Route path="/search/:recipeSearch" element={<Search/>}/>
-                                  <Route path="/search" element={<Search/>}/>
-                                  <Route path="" element={<Home/>}/>
-                                  <Route path="/login" element={<LoginScreen/>}/>
-                                  <Route path="/profile" element={
-                                      <SecureRoute>
-                                          <Profile/>
-                                      </SecureRoute>
-                                  }/>
-                                  <Route path="/favorites" element={
-                                      <SecureRoute>
-                                          <Favorites/>
-                                      </SecureRoute>
-                                  }/>
-                                  <Route path="/posts" element={<PostScreen/>}/>
-                              </Routes>
+                                  <Routes>
+                                      <Route path="/details/:mealID" element={<Details/>}/>
+                                      <Route path="/search/:recipeSearch" element={<Search/>}/>
+                                      <Route path="/search" element={<Search/>}/>
+                                      <Route path="" element={<Home/>}/>
+                                      <Route path="/login" element={<LoginScreen/>}/>
+                                      <Route path="/profile" element={
+                                          <SecureRoute>
+                                              <Profile/>
+                                          </SecureRoute>
+                                      }/>
+                                      <Route path="/favorites" element={
+                                          <SecureRoute>
+                                              <Favorites/>
+                                          </SecureRoute>
+                                      }/>
+                                      <Route path="/posts" element={<PostScreen/>}/>
+                                  </Routes>
 
+                          </div>
                       </div>
-                  </div>
-              </BrowserRouter>
+                  </BrowserRouter>
+              </Provider>
           </ProfileProvider>
       </div>
   );

@@ -1,10 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
-import {logout} from "../services/auth-service";
 import {useProfile} from "../../contexts/profile-context";
 import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
-    const {profile, updateProfile} = useProfile();
+    const {profile, updateProfile, logout} = useProfile();
     const [newProfile, setNewProfile] = useState({});
     const navigate = useNavigate();
 

@@ -55,10 +55,18 @@ export const ProfileProvider = ({children}) => {
                 throw e;
             }
         }
-
     }
 
-    const value = {profile, signup, checkLoggedIn, login, updateProfile, likeRecipe};
+    const logout = async () => {
+        try {
+            await service.logout();
+            setProfile(null);
+        } catch (e) {
+            //Empty
+        }
+    }
+
+    const value = {profile, signup, checkLoggedIn, login, updateProfile, likeRecipe, logout};
 
     return (
         <ProfileContext.Provider value={value}>

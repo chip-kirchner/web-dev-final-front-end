@@ -1,29 +1,36 @@
 import React, {useEffect, useState} from "react";
 import * as service from "../services/post-service";
-import {Link} from "react-router-dom";
 import {useProfile} from "../../contexts/profile-context";
 import PostItem from "./post-item";
+import WritePost from "./write-post";
+import {useDispatch, useSelector} from "react-redux";
+import * as action from "../actions/post-actions";
+import SecureContent from "../secure-content";
 
 const PostScreen = () => {
-    const [posts, setPosts] = useState([]);
+    const posts = useSelector((state) => state);
+    const dispatch = useDispatch();
     const {profile, checkLoggedIn} = useProfile();
 
-    const getPosts = async () => {
-        const newPosts = await service.findAllPosts();
-        setPosts(newPosts);
+    const loadFunction = async (dispatch) => {
+        await action.getPosts(dispatch);
+        await checkLoggedIn();
     }
-
     useEffect(() => {
-        getPosts();
-        checkLoggedIn();
-    }, [])
+        loadFunction(dispatch);
+    }, [dispatch, profile])
 
     return (
-        <ul className="list-group">
-            {posts.map(post =>
-                <PostItem newPost={post}/>
-            )}
-        </ul>
+        <>
+            <SecureContent>
+                <WritePost/>
+            </SecureContent>
+            <ul className="list-group">
+                {posts.map(post =>
+                    <PostItem post={post}/>
+                )}
+            </ul>
+        </>
     );
 };
 

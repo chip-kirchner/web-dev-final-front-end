@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import * as service from "../services/post-service";
+import * as action from "../actions/post-actions";
 import {Link} from "react-router-dom";
 import {useProfile} from "../../contexts/profile-context";
+import {useDispatch} from "react-redux";
+import RecipeWidget from "./recipe-widget";
 
-const PostItem = ({newPost}) => {
-    const [post, setPost] = useState(newPost);
+const PostItem = ({post}) => {
     const {profile} = useProfile();
+    const dispatch = useDispatch();
 
     const isLiked = () => {
         if (profile) {
@@ -17,27 +19,15 @@ const PostItem = ({newPost}) => {
     const handleLikes = async () => {
         if (profile) {
             if (isLiked()) {
-                try {
-                    await service.unlikePost(post);
-                    const newLikes = post.likedBy.filter(use => use !== profile._id);
-                    setPost({...post, likedBy: newLikes});
-                } catch (e) {
-                    //Empty
-                }
+                await action.unlikePost(post, profile, dispatch);
             } else {
-                try {
-                    await service.likePost(post);
-                    const newLikes = [...post.likedBy, profile._id];
-                    setPost({...post, likedBy: newLikes});
-                } catch (e) {
-                    //Empty
-                }
+                await action.likePost(post, profile, dispatch);
             }
         }
     }
 
     return (
-        <li className="border list-group-item rounded mb-2">
+        <li key={post._id} className="border list-group-item rounded mb-2">
             <span className="float-end">
                 <i onClick={handleLikes}
                    className={`fas fa-thumbs-up ${isLiked() ? "text-primary" : ""} me-1`}></i>
@@ -53,24 +43,7 @@ const PostItem = ({newPost}) => {
                 {post.text}
             </div>
             <div className="mb-2 ">
-                <Link to={`/details/${post.recipe.idMeal}`} style={{ textDecoration: 'none' }}
-                      className="text-black">
-                    <img src={post.recipe.strMealThumb} alt={post.recipe.strMeal} height={60}
-                         className="rounded float-start me-2 border border-muted"/>
-                    <div>
-                        <strong>{post.recipe.strMeal}</strong>
-                    </div>
-
-                    <span className="text-secondary me-2">
-                        <i className="fas fa-globe me-2"></i>
-                        {post.recipe.strArea}
-                    </span>
-                    |
-                    <span className="text-secondary ms-2 me-2">
-                        <i className="fas fa-utensils me-2"></i>
-                        {post.recipe.strCategory}
-                    </span>
-                </Link>
+                <RecipeWidget recipe={post.recipe}/>
             </div>
         </li>
     );

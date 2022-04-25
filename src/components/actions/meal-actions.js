@@ -9,7 +9,3 @@ export const findMealById = async (dispatch, id) => {
         meal
     });
 }
-
-export const findMultiMeals = async (dispatch, ids) => {
-    const meals = []
-}

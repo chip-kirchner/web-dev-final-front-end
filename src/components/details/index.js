@@ -12,11 +12,8 @@ const Details = () => {
     const {mealID} = useParams();
 
     const isLiked = (mealToCheck) => {
-        console.log("here");
         if (mealToCheck && Object.keys(mealToCheck).length !== 0) {
-
             if (profile.favoriteRecipes.filter(m => m.idMeal === mealToCheck.idMeal).length > 0) {
-
                 return true;
             }
         }
