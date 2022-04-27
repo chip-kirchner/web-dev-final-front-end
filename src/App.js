@@ -39,6 +39,7 @@ function App() {
                                   <Route path="/search/:recipeSearch" element={<Search/>}/>
                                   <Route path="/search" element={<Search/>}/>
                                   <Route path="" element={<Home/>}/>
+                                  <Route path="/home" element={<Home/>}/>
                                   <Route path="/login" element={<LoginScreen/>}/>
                                   <Route path="/profile" element={
                                       <SecureRoute>

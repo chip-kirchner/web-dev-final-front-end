@@ -1,29 +1,43 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import * as mealService from "../services/recipe-service";
 import * as ourMealService from "../services/our-meal-db-service";
 import * as action from "../actions/profile-actions";
 import {useDispatch, useSelector} from "react-redux";
+import SecureContent from "../secure-content";
 
 
 const Details = () => {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
     const [meal, setMeal] = useState({});
-    const [dbMeal, setDbMeal] = useState({});
-    const [liked, setLiked] = useState(false);
+    const [dbMeal, setDbMeal] = useState(null);
+    const [day, setDay] = useState("monday");
     const {mealID} = useParams();
+    const navigate = useNavigate();
 
-    const isLiked = (mealToCheck) => {
-        console.log(mealToCheck);
-        if (mealToCheck && Object.keys(mealToCheck).length !== 0) {
-            console.log(profile);
-            if (profile.favoriteRecipes.filter(m => m.idMeal === mealToCheck.idMeal).length > 0) {
-                console.log("here");
-                return true;
-            }
+    const isLiked = () => {
+        if (dbMeal && dbMeal.liked && profile) {
+            return dbMeal.liked.filter(u => u._id === profile._id).length > 0;
         }
         return false;
+    }
+
+    const handleDayChange = (e) => {
+        const newDay = e.target.value;
+        setDay(newDay);
+    }
+
+    const handleAddMealToPlan = async () => {
+        if (dbMeal._id) {
+            await action.addMealToPlan(day, dbMeal, profile.plan, dispatch);
+            navigate("/home");
+        } else {
+            const ourNewMeal = await ourMealService.addRecipe(meal);
+            setDbMeal(ourNewMeal);
+            await action.addMealToPlan(day, ourNewMeal, profile.plan, dispatch);
+            navigate("/home");
+        }
     }
 
     useEffect(() => {
@@ -33,10 +47,6 @@ const Details = () => {
             const ourNewMeal = await ourMealService.findRecipeById(mealID);
             setDbMeal(ourNewMeal);
             await action.checkLoggedIn(dispatch);
-            if (profile) {
-                const b = isLiked(ourNewMeal);
-                setLiked(b);
-            }
         };
 
         loadMeal();
@@ -47,16 +57,16 @@ const Details = () => {
             try {
                 await action.likeRecipe(meal, dispatch);
                 if (dbMeal.liked) {
-                    if (liked) {
-                        setDbMeal({...dbMeal, liked: dbMeal.liked - 1});
-                        setLiked(false);
+                    if (isLiked()) {
+                        const newLikes = dbMeal.liked.filter(u => u._id !== profile._id);
+                        setDbMeal({...dbMeal, liked: newLikes});
                     } else {
-                        setDbMeal({...dbMeal, liked: dbMeal.liked + 1});
-                        setLiked(true);
+                        const newLikes = [...dbMeal.liked, profile];
+                        setDbMeal({...dbMeal, liked: newLikes});
                     }
                 } else {
-                    setDbMeal({...dbMeal, liked: 1});
-                    setLiked(true);
+                    const ourNewMeal = await ourMealService.addRecipe(meal)
+                    setDbMeal(ourNewMeal);
                 }
             } catch (e) {
                 //empty
@@ -71,10 +81,13 @@ const Details = () => {
                 <div className="d-flex justify-content-between align-items-center">
                     <h2 className="float-start">{meal.strMeal}</h2>
                     <span>
-                        <i onClick={handleLikes} className={`fas fa-heart align-middle ${liked ? "text-danger" : ""} me-1`}></i>
-                        <span className="text-muted me-3"> {dbMeal.liked ? dbMeal.liked : 0}</span>
-                        <i className="fas fa-calendar align-middle text-primary me-3"></i>
-                        <i className="fas fa-plus align-middle me-2"></i>
+                        <i title="Add to favorites" onClick={handleLikes} className={`fas fa-heart align-middle ${isLiked() ? "text-danger" : ""} me-1`}></i>
+                        <span className="text-muted me-3"> {dbMeal && dbMeal.liked ? dbMeal.liked.length : 0}</span>
+                        <SecureContent>
+                            <i title="Add to your plan" data-bs-toggle="modal" className="fas fa-calendar align-middle text-primary me-3"></i>
+
+                            <i onClick={() => {navigate(`/posts?i=${meal.idMeal}`)}} title="Make a post" data-bs-toggle="tooltip" className="fas fa-plus align-middle me-2"></i>
+                        </SecureContent>
                     </span>
 
                 </div>
@@ -135,6 +148,33 @@ const Details = () => {
             </div>
             <div className="mt-2">
                 {meal.strInstructions}
+            </div>
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="staticBackdropLabel">Which day would you like to add this recipe to?</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <select onChange={handleDayChange} className="form-select">
+                                <option selected value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+                            <button onClick={handleAddMealToPlan} data-bs-dismiss="modal" type="button" className="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );

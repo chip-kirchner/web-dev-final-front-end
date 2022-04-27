@@ -3,10 +3,11 @@ import RecipeWidget from "../post-screen/recipe-widget";
 import SecureContent from "../secure-content";
 import * as action from "../actions/profile-actions";
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const temp_recipe = {
     "_id": "6265c96798c44f0e8e2f73bf",
-    "idMeal": 52920,
+    "idMeal": '#',
     "strMeal": "No Meal Yet.",
     "strMealThumb": "https://www.publicdomainpictures.net/pictures/120000/velka/christmas-dinner.jpg",
     "strSource": "https://www.bbcgoodfood.com/recipes/3146682/chicken-marengo",
@@ -16,19 +17,26 @@ const temp_recipe = {
     "__v": 0
 };
 
-const PlanItem = ({plan}) => {
+const PlanItem = (
+    {
+        plan: plan,
+        disable: disable = false
+    }
+) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleClick = async (e) => {
-        action.adoptPlan(plan, dispatch);
+        await action.adoptPlan(plan, dispatch);
+        navigate("/home");
     }
 
     return (
             <ul className="list-group">
                 <li key="name" className="list-group-item border-0 border-bottom d-flex justify-content-between align-items-center">
-                    <span><strong>{plan.title}</strong> by @{plan.user.name} </span>
+                    <span><strong>{plan.title}</strong> {disable ? "" : `by @${plan.user.name}`} </span>
                     <SecureContent>
-                        <i onClick={handleClick} className="fas fa-plus"></i>
+                        {disable ? "" : <i onClick={handleClick} className="fas fa-plus"></i>}
                     </SecureContent>
 
                 </li>

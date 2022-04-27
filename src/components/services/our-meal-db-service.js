@@ -31,3 +31,12 @@ export const getFavorites = async () => {
         throw e;
     }
 }
+
+export const addRecipe = async (recipe) => {
+    try {
+        const response = await api.post(`${API_MEAL}/api/meals`, {recipe});
+        return response.data;
+    } catch(e) {
+        throw e;
+    }
+}

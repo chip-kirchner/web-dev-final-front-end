@@ -4,8 +4,8 @@ const postReducer = (state = [], action) => {
     switch (action.type) {
         case CREATE_POST:
             return [
-                ...state,
-                action.newPost
+                action.newPost,
+                ...state
             ];
         case DELETE_POST:
             return state.filter(post => post !== action.postToDelete);

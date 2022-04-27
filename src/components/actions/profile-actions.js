@@ -7,6 +7,7 @@ export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const LOGOUT = "LOGOUT";
 export const LIKE = "LIKE";
 export const ADOPT_PLAN = "ADOPT_PLAN";
+export const PLAN_ADD_RECIPE = "PLAN_ADD_RECIPE";
 
 export const login = async (email, password, dispatch) => {
     try {
@@ -88,14 +89,40 @@ export const logout = async (dispatch) => {
 
 export const adoptPlan = async (plan, dispatch) => {
     try {
-        const response = await service.adoptPlan(plan);
+        const newProfile = await service.adoptPlan(plan);
         dispatch({
-            type: ADOPT_PLAN,
-            plan
+            type: UPDATE_PROFILE,
+            newProfile
         })
-        return response;
+        return newProfile;
     } catch (e) {
         //
     }
     return;
+}
+
+export const addMealToPlan = async (day, recipe, oldPlan, dispatch) => {
+    switch (day) {
+        case "monday":
+            await adoptPlan({...oldPlan, monday: recipe}, dispatch);
+            return;
+        case "tuesday":
+            await adoptPlan({...oldPlan, tuesday: recipe}, dispatch);
+            return;
+        case "wednesday":
+            await adoptPlan({...oldPlan, wednesday: recipe}, dispatch);
+            return;
+        case "thursday":
+            await adoptPlan({...oldPlan, thursday: recipe}, dispatch);
+            return;
+        case "friday":
+            await adoptPlan({...oldPlan, friday: recipe}, dispatch);
+            return;
+        case "saturday":
+            await adoptPlan({...oldPlan, saturday: recipe}, dispatch);
+            return;
+        case "sunday":
+            await adoptPlan({...oldPlan, sunday: recipe}, dispatch);
+            return;
+    }
 }

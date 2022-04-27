@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import * as ourMealService from "../services/our-meal-db-service";
 import * as mealService from "../services/recipe-service";
 import * as action from "../actions/post-actions";
@@ -10,6 +10,7 @@ const WritePost = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [postRecipe, setPostRecipe] = useState();
     const profile = useSelector(state => state.profile);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const textRef = useRef();
     const recipeID = searchParams.get('i');
@@ -31,6 +32,7 @@ const WritePost = () => {
         if(postRecipe.idMeal) {
             const newPost = {text: textRef.current.value, recipe: postRecipe};
             await action.createPost(newPost, dispatch);
+            navigate("/posts");
         }
     }
 
