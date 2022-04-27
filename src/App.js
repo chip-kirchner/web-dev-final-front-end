@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import Details from "./components/details";
 import Navigation from "./components/navigation";
@@ -13,8 +13,14 @@ import SecureRoute from "./components/secure-route";
 import Favorites from "./components/favorites";
 import PostScreen from "./components/post-screen";
 import postReducer from "./components/reducers/post-reducer";
+import planReducer from "./components/reducers/plan-reducer";
+import PlanScreen from "./components/plan-screen";
 
-const store = createStore(postReducer);
+const reducer = combineReducers({
+    posts: postReducer,
+    plans: planReducer
+})
+const store = createStore(reducer);
 
 function App() {
   return (
@@ -45,6 +51,7 @@ function App() {
                                           </SecureRoute>
                                       }/>
                                       <Route path="/posts" element={<PostScreen/>}/>
+                                      <Route path="/plans" element={<PlanScreen/>}/>
                                   </Routes>
 
                           </div>

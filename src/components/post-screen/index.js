@@ -8,7 +8,7 @@ import * as action from "../actions/post-actions";
 import SecureContent from "../secure-content";
 
 const PostScreen = () => {
-    const posts = useSelector((state) => state);
+    const posts = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     const {profile, checkLoggedIn} = useProfile();
 

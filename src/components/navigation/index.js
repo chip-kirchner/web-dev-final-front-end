@@ -76,6 +76,16 @@ const Navigation = () => {
                     </div>
                 </div>
             </Link>
+            <Link to="/plans" className={`list-group-item list-group-item-action ${location.pathname === '/plans' ? 'active' : ""}`}>
+                <div className="row">
+                    <div className="col-12 col-lg-3">
+                        <i className="fas fa-calendar me-3"></i>
+                    </div>
+                    <div className="d-none d-lg-block col-9 ">
+                        Plans
+                    </div>
+                </div>
+            </Link>
         </div>
     )
 };
