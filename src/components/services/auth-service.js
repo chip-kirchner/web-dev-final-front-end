@@ -28,3 +28,8 @@ export const updateProfile = async (profile) => {
     return response.data;
 }
 
+export const adoptPlan = async (plan) => {
+    const response = await api.put(`${API_URL}/adopt`, {plan});
+    return response;
+}
+

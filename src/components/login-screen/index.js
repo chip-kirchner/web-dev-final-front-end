@@ -1,17 +1,19 @@
 import React, {useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import {useProfile} from "../../contexts/profile-context";
+import * as action from "../actions/profile-actions";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const LoginScreen = () => {
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.profile);
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
-    const {signup, login} = useProfile();
 
     const handleSignup = async () => {
         try {
-            await signup(emailRef.current.value, passwordRef.current.value);
+            await action.signup(emailRef.current.value, passwordRef.current.value, dispatch);
             navigate("/profile");
         } catch (e) {
             alert(e);
@@ -20,7 +22,7 @@ const LoginScreen = () => {
 
     const handleLogin = async () => {
         try {
-            await login(emailRef.current.value, passwordRef.current.value);
+            await action.login(emailRef.current.value, passwordRef.current.value, dispatch);
             navigate("/profile");
         } catch (e) {
             alert(e);

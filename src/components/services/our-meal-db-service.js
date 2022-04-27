@@ -19,7 +19,7 @@ export const likeRecipe = async (recipe) => {
         const response = await api.put(`${API_MEAL}/api/like`, {recipe});
         return response.status;
     } catch (e) {
-
+        throw(e);
     }
 };
 

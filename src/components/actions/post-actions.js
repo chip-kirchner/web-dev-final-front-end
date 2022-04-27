@@ -45,7 +45,7 @@ export const likePost = async (post, user, dispatch) => {
     const response = await service.likePost(post);
     if (response) {
         const newLikes = [...post.likedBy, user._id];
-        const newPost = {...post, lilkedBy: newLikes};
+        const newPost = {...post, likedBy: newLikes};
         dispatch({
             type: UPDATE_POST,
             newPost

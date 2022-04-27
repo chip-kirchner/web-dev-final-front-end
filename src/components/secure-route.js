@@ -1,16 +1,17 @@
 import {useEffect, useState} from "react";
-import {useProfile} from "../contexts/profile-context";
+import * as action from "./actions/profile-actions";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 const SecureRoute = ({children}) => {
     const navigate = useNavigate();
-    const {checkLoggedIn} = useProfile();
+    const dispatch = useDispatch();
     const [currentUser, setCurrentUser] = useState();
     const [waiting, setWaiting] = useState(true);
 
     const check = async () => {
         try {
-            const user = await checkLoggedIn();
+            const user = await action.checkLoggedIn(dispatch);
             setCurrentUser(user);
             setWaiting(false);
         } catch (e) {

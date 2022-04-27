@@ -33,7 +33,6 @@ const temp_plan = {
 const PlanScreen = () => {
     const dispatch = useDispatch();
     const plans = useSelector((state) => state.plans);
-    console.log(plans);
     useEffect(() => {
         action.getPlans(dispatch);
     }, [dispatch]);

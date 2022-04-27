@@ -1,16 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {useProfile} from "../../contexts/profile-context";
 import * as ourMealService from "../services/our-meal-db-service";
 import * as mealService from "../services/recipe-service";
 import * as action from "../actions/post-actions";
 import RecipeWidget from "./recipe-widget";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const WritePost = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [postRecipe, setPostRecipe] = useState();
-    const {profile} = useProfile();
+    const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
     const textRef = useRef();
     const recipeID = searchParams.get('i');

@@ -1,14 +1,16 @@
 import React, {useEffect, useRef, useState} from "react";
-import {useProfile} from "../../contexts/profile-context";
+import * as action from "../actions/profile-actions";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 const Profile = () => {
-    const {profile, updateProfile, logout} = useProfile();
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.profile);
     const [newProfile, setNewProfile] = useState({});
     const navigate = useNavigate();
 
     const handleUpdateProfile = async () => {
-        const response = await updateProfile(newProfile);
+        const response = await action.updateProfile(newProfile, dispatch);
     }
 
     const handleRoleChange = (e) => {
@@ -22,7 +24,7 @@ const Profile = () => {
     }
 
     const handleLogout = async () => {
-        await logout();
+        await action.logout(dispatch);
         navigate("/login");
     }
 
@@ -30,7 +32,7 @@ const Profile = () => {
         if (profile) {
             setNewProfile(profile);
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>

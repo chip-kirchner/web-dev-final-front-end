@@ -2,18 +2,24 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import * as mealService from "../services/recipe-service";
 import * as ourMealService from "../services/our-meal-db-service";
-import {useProfile} from "../../contexts/profile-context";
+import * as action from "../actions/profile-actions";
+import {useDispatch, useSelector} from "react-redux";
+
 
 const Details = () => {
-    const {profile, likeRecipe, checkLoggedIn} = useProfile();
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.profile);
     const [meal, setMeal] = useState({});
     const [dbMeal, setDbMeal] = useState({});
     const [liked, setLiked] = useState(false);
     const {mealID} = useParams();
 
     const isLiked = (mealToCheck) => {
+        console.log(mealToCheck);
         if (mealToCheck && Object.keys(mealToCheck).length !== 0) {
+            console.log(profile);
             if (profile.favoriteRecipes.filter(m => m.idMeal === mealToCheck.idMeal).length > 0) {
+                console.log("here");
                 return true;
             }
         }
@@ -26,23 +32,20 @@ const Details = () => {
             setMeal(newMeal);
             const ourNewMeal = await ourMealService.findRecipeById(mealID);
             setDbMeal(ourNewMeal);
-            try {
-                await checkLoggedIn();
+            await action.checkLoggedIn(dispatch);
+            if (profile) {
                 const b = isLiked(ourNewMeal);
                 setLiked(b);
-            } catch (e) {
-                //empty
             }
         };
 
         loadMeal();
-    }, [mealID]);
+    }, [mealID, dispatch]);
 
     const handleLikes = async () => {
         if (profile) {
             try {
-                await likeRecipe(meal);
-                //console.log("here");
+                await action.likeRecipe(meal, dispatch);
                 if (dbMeal.liked) {
                     if (liked) {
                         setDbMeal({...dbMeal, liked: dbMeal.liked - 1});

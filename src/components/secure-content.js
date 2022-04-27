@@ -1,13 +1,15 @@
 import {useEffect, useState} from "react";
-import {useProfile} from "../contexts/profile-context";
+import {useDispatch} from "react-redux";
+import * as action from "./actions/profile-actions";
 
 const SecureContent = ({children}) => {
-    const {checkLoggedIn} = useProfile()
+    const dispatch = useDispatch();
+
     const [currentUser, setCurrentUser] = useState()
 
     const check = async () => {
         try {
-            const user = await checkLoggedIn()
+            const user = await action.checkLoggedIn(dispatch);
             setCurrentUser(user)
         } catch (e) {
         }

@@ -1,10 +1,11 @@
-import {useProfile} from "../../contexts/profile-context";
 import * as service from "../services/our-meal-db-service";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 const Favorites = () => {
-    const {profile} = useProfile();
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.profile);
     const [favorites, setFavorites] = useState([]);
 
     const getFavorites = async () => {
@@ -16,7 +17,7 @@ const Favorites = () => {
 
     useEffect(() => {
         getFavorites();
-    }, [])
+    }, [dispatch])
 
     return(
         <>

@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import * as action from "../actions/post-actions";
-import {Link} from "react-router-dom";
-import {useProfile} from "../../contexts/profile-context";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import RecipeWidget from "./recipe-widget";
 
 const PostItem = ({post}) => {
-    const {profile} = useProfile();
+    const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
 
     const isLiked = () => {
