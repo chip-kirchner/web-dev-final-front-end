@@ -2,7 +2,8 @@ import React from "react";
 import RecipeWidget from "../post-screen/recipe-widget";
 import SecureContent from "../secure-content";
 import * as action from "../actions/profile-actions";
-import {useDispatch} from "react-redux";
+import * as planAction from "../actions/plan-actions";
+import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 
 const temp_recipe = {
@@ -25,10 +26,15 @@ const PlanItem = (
 ) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const profile = useSelector(state => state.profile);
 
     const handleClick = async (e) => {
         await action.adoptPlan(plan, dispatch);
         navigate("/home");
+    }
+
+    const handleDelete = async (e) => {
+        await planAction.deletePlan(plan, dispatch);
     }
 
     return (
@@ -38,7 +44,11 @@ const PlanItem = (
                                                                               style={{ textDecoration: 'none' }}
                                                                               to={`/profile/${plan.user._id}`}>by @{plan.user.name}</Link>} </span>
                     <SecureContent>
-                        {disable ? "" : <i onClick={handleClick} className="fas fa-plus pointer"></i>}
+                        <div>
+                            {disable ? "" : <i onClick={handleClick} className="fas fa-plus pointer me-2"></i>}
+                            {!disable && profile && plan.user._id === profile._id ?
+                                <button onClick={handleDelete} className="btn btn-close ms-2"></button> : ""}
+                        </div>
                     </SecureContent>
 
                 </li>

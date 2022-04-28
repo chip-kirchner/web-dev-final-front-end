@@ -26,16 +26,6 @@ const Navigation = () => {
                     </div>
                 </div>
             </Link>
-            <Link to="/favorites" className={`list-group-item list-group-item-action ${location.pathname === '/favorites' ? 'active' : ""}`}>
-                <div className="row">
-                    <div className="col-12 col-lg-3">
-                        <i className="fas fa-heart me-3"></i>
-                    </div>
-                    <div className="d-none d-lg-block col-9 ">
-                        Favorites
-                    </div>
-                </div>
-            </Link>
             <Link to="/search" className={`list-group-item list-group-item-action ${location.pathname.includes('/search') ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">

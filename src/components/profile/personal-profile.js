@@ -1,16 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import * as action from "../actions/profile-actions";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import RecipeWidget from "../post-screen/recipe-widget";
 import FavoriteWidget from "./favorite-widget";
 import ViewWidget from "./view-widget";
+import ProfileTabs from "./profile-tabs";
 
 const PersonalProfile = () => {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [view, setView] = useState("posts");
     const [newProfile, setNewProfile] = useState({});
     const navigate = useNavigate();
 
@@ -33,27 +31,20 @@ const PersonalProfile = () => {
         navigate("/login");
     }
 
-    const handleGoPosts = (e) => {
-        setView('posts');
-    }
 
-    const handleGoPlans = (e) => {
-        setView('plans');
-    }
 
-    const handleGoFollowing = (e) => {
-        setView('following');
-    }
-
-    const handleGoFavorites = (e) => {
-        setView('favorites');
+    const load = async () => {
+        if (profile) {
+            setNewProfile(profile);
+        } else {
+            navigate("/login");
+        }
     }
 
     useEffect(() => {
-        if (profile) {
-            setNewProfile(profile);
-        }
-    }, [dispatch, profile, view]);
+        load();
+        //console.log("effect")
+    }, [dispatch, profile]);
 
     return (
         <div className="row">
@@ -62,6 +53,7 @@ const PersonalProfile = () => {
                     <button onClick={handleLogout} className="btn btn-danger rounded-pill float-end">Logout</button>
                     <h1>Hi {profile && profile.name}!</h1>
                     <p className="lead">All of your info is included below.</p>
+                    <Link to={`/profile/${profile._id}`}>View your public profile.</Link>
                     <div className="mb-3 row">
                         <label htmlFor="showEmail" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">
@@ -73,7 +65,7 @@ const PersonalProfile = () => {
                         <label htmlFor="showName" className="col-sm-2 col-form-label">Name</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" onChange={handleNameChange}
-                                   id="showName" value={newProfile.name}/>
+                                   id="showName" value={newProfile && newProfile.name}/>
                         </div>
                     </div>
 
@@ -103,29 +95,13 @@ const PersonalProfile = () => {
 
                     <button className="btn btn-primary rounded-pill" onClick={handleUpdateProfile}>Save</button>
                 </div>
-                <div>
-                    <ul className="nav nav-tabs mt-2">
-                        <li className="nav-item pointer" onClick={handleGoPosts}>
-                            <div className={`nav-link ${view === 'posts' ? 'active' : ''}`}>Posts</div>
-                        </li>
-                        <li className="nav-item pointer" onClick={handleGoPlans}>
-                            <div className={`nav-link ${view === 'plans' ? 'active' : ''}`}>Plans</div>
-                        </li>
-                        <li className="nav-item pointer" onClick={handleGoFollowing}>
-                            <div className={`nav-link ${view === 'following' ? 'active' : ''}`}>Following</div>
-                        </li>
-                        <li className="nav-item d-xl-none pointer" onClick={handleGoFavorites}>
-                            <div className={`nav-link ${view === 'favorites' ? 'active' : ''}`}>Favorites</div>
-                        </li>
-                    </ul>
-                </div>
-                <ViewWidget view={view}/>
+                <ProfileTabs/>
             </div>
 
             <div className="col-xl-4 d-none d-xl-block">
                 <h4>Favorites</h4>
                 <ul className="list-group">
-                    {profile.favoriteRecipes.map(recipe =>
+                    {profile && profile.favoriteRecipes.map(recipe =>
                         <FavoriteWidget recipe={recipe}/>
                     )}
                 </ul>

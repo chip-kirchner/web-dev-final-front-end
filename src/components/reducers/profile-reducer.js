@@ -21,10 +21,10 @@ const profileReducer = (state = null, action) => {
         case ADOPT_PLAN:
             return {...state, plan: action.plan};
         case FOLLOW:
-            console.log({...state, following: [action.user, ...state.following]})
-            return {...state, following: [action.user, ...state.following]};
+            //console.log({...state, following: [...state.following, action.user]})
+            return {...state, following: [...state.following, action.user]};
         case UNFOLLOW:
-            console.log({...state, following: state.following.filter(u => u._id !== action.user._id)})
+            //console.log({...state, following: state.following.filter(u => u._id !== action.user._id)})
             return {...state, following: state.following.filter(u => u._id !== action.user._id)};
         case UNLIKE:
             return {...state, favoriteRecipes: state.favoriteRecipes.filter(rec => rec._id !== action.recipe._id)};

@@ -7,12 +7,13 @@ import SecureContent from "../secure-content";
 import PostItem from "../post-screen/post-item";
 import * as postAction from "../actions/post-actions";
 import RecipeWidget from "../post-screen/recipe-widget";
+import ProfileTabs from "../profile/profile-tabs";
 
 const PublicProfile = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts);
     const profile = useSelector(state => state.profile);
-    const [users, setUsers] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(false);
     const {uid} = useParams();
     const [prof, setProf] = useState(null);
 
@@ -22,25 +23,22 @@ const PublicProfile = () => {
                 const temp = await service.lookup(uid);
                 setProf(temp);
                 await postAction.getPosts(dispatch);
-                setUsers(temp.following);
+                if (profile) {
+                    setIsFollowing(profile.following.filter(u => u._id === uid).length > 0)
+                }
             } catch (e) {
                 setProf(null);
             }
         }
     }
 
-    const isFollowing = () => {
-        if (profile) {
-            return profile.following.filter(u => u._id === uid).length > 0;
-        }
-        return false;
-    }
-
     const handleFollow = async () => {
-        if (prof && isFollowing()) {
+        if (prof && isFollowing) {
             await action.unfollow(prof, dispatch);
+            setIsFollowing(false);
         } else {
             await action.follow(prof, dispatch);
+            setIsFollowing(true);
         }
     }
 
@@ -66,7 +64,7 @@ const PublicProfile = () => {
                             {prof.followedBy ? `${prof.followedBy.length}`: 0} Followers
                         </span>
                             <SecureContent>
-                                <button onClick={handleFollow} className="btn btn-primary mb-2">{isFollowing() ? 'Unfollow' : 'Follow'}</button>
+                                <button onClick={handleFollow} className="btn btn-primary mb-2">{isFollowing ? 'Unfollow' : 'Follow'}</button>
                             </SecureContent>
                         </div>
 
@@ -75,11 +73,8 @@ const PublicProfile = () => {
                         Posts by @{prof.name}
                     </h4>
 
-                    <div className="mt-3">
-                        {
-                            posts.filter(post => post.user._id === uid).map(post => <PostItem post={post}/>)
-                        }
-                    </div>
+                    <ProfileTabs user={prof}/>
+
                 </div>
                 <div className="col-xl-4 d-none d-xl-block">
                     <h5>@{prof.name}'s Favorites</h5>

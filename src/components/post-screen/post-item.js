@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import RecipeWidget from "./recipe-widget";
 import Verify from "./verify";
 import {Link} from "react-router-dom";
+import SecureContent from "../secure-content";
 
 const PostItem = ({post}) => {
     const profile = useSelector(state => state.profile);
@@ -52,7 +53,9 @@ const PostItem = ({post}) => {
             <div className="mb-2">
                 {post.text}
             </div>
-            {profile._id === post.user._id? <button onClick={handleDelete} className="btn btn-close float-end"></button> : ""}
+            <SecureContent>
+                {profile && profile._id === post.user._id? <button onClick={handleDelete} className="btn btn-close float-end"></button> : ""}
+            </SecureContent>
             <div className="mb-2 ">
                 <RecipeWidget recipe={post.recipe}/>
             </div>

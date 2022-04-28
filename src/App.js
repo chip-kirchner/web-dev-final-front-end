@@ -48,11 +48,6 @@ function App() {
                                       </SecureRoute>
                                   }/>
                                   <Route path="/profile/:uid" element={<PublicProfile/>}/>
-                                  <Route path="/favorites" element={
-                                      <SecureRoute>
-                                          <Favorites/>
-                                      </SecureRoute>
-                                  }/>
                                   <Route path="/posts" element={<PostScreen/>}/>
                                   <Route path="/plans" element={<PlanScreen/>}/>
                               </Routes>

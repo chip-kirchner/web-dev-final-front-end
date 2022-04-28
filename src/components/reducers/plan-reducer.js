@@ -7,9 +7,9 @@ const planReducer = (state = [], action) => {
         case CREATE_PLAN:
             return [action.plan, ...state];
         case DELETE_PLAN:
-            plans: state.filter(p => p._id !== action.planToDelete._id);
+            return state.filter(p => p._id !== action.planToDelete._id);
         case PUBLISH_PLAN:
-            plans: state.filter(p => p._id === action.newPlan._id ? action.newPlan : p);
+            return state.filter(p => p._id === action.newPlan._id ? action.newPlan : p);
         default:
             return state;
     }
