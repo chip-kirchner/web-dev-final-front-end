@@ -3,6 +3,7 @@ import * as action from "../actions/post-actions";
 import {useDispatch, useSelector} from "react-redux";
 import RecipeWidget from "./recipe-widget";
 import Verify from "./verify";
+import {Link} from "react-router-dom";
 
 const PostItem = ({post}) => {
     const profile = useSelector(state => state.profile);
@@ -13,6 +14,12 @@ const PostItem = ({post}) => {
             return post.likedBy.includes(profile._id);
         }
         return false;
+    }
+
+    const handleDelete = async (e) => {
+        if (profile) {
+            await action.deletePost(post, dispatch);
+        }
     }
 
     const handleLikes = async () => {
@@ -34,15 +41,22 @@ const PostItem = ({post}) => {
             </span>
 
             <span className="mt-1">
-                <strong className="me-1">@{post.user.name}</strong>
+                <strong className="me-1">
+                    <Link to={`/profile/${post.user._id}`}
+                                               className="text-black"
+                                               style={{ textDecoration: 'none' }}
+                                            >@{post.user.name}</Link>
+                </strong>
                 <Verify role={post.user.role}/>
             </span>
             <div className="mb-2">
                 {post.text}
             </div>
+            {profile._id === post.user._id? <button onClick={handleDelete} className="btn btn-close float-end"></button> : ""}
             <div className="mb-2 ">
                 <RecipeWidget recipe={post.recipe}/>
             </div>
+
         </li>
     );
 };

@@ -31,7 +31,7 @@ const PublicProfile = () => {
 
     const isFollowing = () => {
         if (profile) {
-            return profile.following.filter(u => u === uid).length > 0;
+            return profile.following.filter(u => u._id === uid).length > 0;
         }
         return false;
     }
@@ -48,7 +48,6 @@ const PublicProfile = () => {
         find();
     }, [dispatch])
 
-    console.log(prof.following)
     if (prof) {
         return (
             <div className="row">
@@ -61,10 +60,10 @@ const PublicProfile = () => {
                                 ({prof.role})
                             </i>
                             <span data-bs-toggle="modal" data-bs-target="#users" className="me-3">
-                            {prof.following.length} Following
+                            {prof.following ? `${prof.following.length}`: 0} Following
                         </span>
                             <span className="flex-grow-1">
-                            {prof.followedBy.length} Followers
+                            {prof.followedBy ? `${prof.followedBy.length}`: 0} Followers
                         </span>
                             <SecureContent>
                                 <button onClick={handleFollow} className="btn btn-primary mb-2">{isFollowing() ? 'Unfollow' : 'Follow'}</button>

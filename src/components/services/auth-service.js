@@ -47,3 +47,8 @@ export const unfollow = async (user) => {
     const response = await api.post(`${API_URL}/unfollow`, user);
     return response;
 }
+
+export const unlikeRecipe = async (recipe) => {
+    const response = await api.put(`${API_URL}/unlike`, {recipe});
+    return response;
+}

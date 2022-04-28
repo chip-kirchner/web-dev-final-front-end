@@ -1,4 +1,4 @@
-import {LOGOUT, SET_PROFILE, UPDATE_PROFILE, ADOPT_PLAN, LIKE, FOLLOW, UNFOLLOW} from "../actions/profile-actions";
+import {LOGOUT, SET_PROFILE, UPDATE_PROFILE, ADOPT_PLAN, LIKE, FOLLOW, UNFOLLOW, UNLIKE} from "../actions/profile-actions";
 
 const profileReducer = (state = null, action) => {
     switch (action.type) {
@@ -21,11 +21,13 @@ const profileReducer = (state = null, action) => {
         case ADOPT_PLAN:
             return {...state, plan: action.plan};
         case FOLLOW:
-            console.log({...state, following: [action.user._id, ...state.following]})
-            return {...state, following: [action.user._id, ...state.following]};
+            console.log({...state, following: [action.user, ...state.following]})
+            return {...state, following: [action.user, ...state.following]};
         case UNFOLLOW:
-            console.log({...state, following: state.following.filter(u => u !== action.user._id)})
-            return {...state, following: state.following.filter(u => u !== action.user._id)};
+            console.log({...state, following: state.following.filter(u => u._id !== action.user._id)})
+            return {...state, following: state.following.filter(u => u._id !== action.user._id)};
+        case UNLIKE:
+            return {...state, favoriteRecipes: state.favoriteRecipes.filter(rec => rec._id !== action.recipe._id)};
         default:
             return state;
     }

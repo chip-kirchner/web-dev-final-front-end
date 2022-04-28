@@ -9,6 +9,7 @@ export const LIKE = "LIKE";
 export const ADOPT_PLAN = "ADOPT_PLAN";
 export const FOLLOW = "FOLLOW";
 export const UNFOLLOW = "UNFOLLOW";
+export const UNLIKE = "UNLIKE";
 
 export const login = async (email, password, dispatch) => {
     try {
@@ -151,3 +152,13 @@ export const unfollow = async (user, dispatch) => {
         //
     }
 };
+
+export const unlike = async (recipe, dispatch) => {
+    try{
+        await service.unlikeRecipe(recipe);
+        dispatch({
+            type: UNLIKE,
+            recipe
+        })
+    } catch (e) {}
+}

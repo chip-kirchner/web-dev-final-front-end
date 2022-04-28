@@ -19,6 +19,7 @@ const PostScreen = () => {
 
     return (
         <>
+            <h2>Most Recent Posts</h2>
             <SecureContent>
                 <WritePost/>
             </SecureContent>

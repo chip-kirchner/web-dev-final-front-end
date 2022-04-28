@@ -3,7 +3,7 @@ import RecipeWidget from "../post-screen/recipe-widget";
 import SecureContent from "../secure-content";
 import * as action from "../actions/profile-actions";
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const temp_recipe = {
     "_id": "6265c96798c44f0e8e2f73bf",
@@ -34,9 +34,11 @@ const PlanItem = (
     return (
             <ul className="list-group">
                 <li key="name" className="list-group-item border-0 border-bottom d-flex justify-content-between align-items-center">
-                    <span><strong>{plan.title}</strong> {disable ? "" : `by @${plan.user.name}`} </span>
+                    <span><strong>{plan.title}</strong> {disable ? "" : <Link className="text-black"
+                                                                              style={{ textDecoration: 'none' }}
+                                                                              to={`/profile/${plan.user._id}`}>by @{plan.user.name}</Link>} </span>
                     <SecureContent>
-                        {disable ? "" : <i onClick={handleClick} className="fas fa-plus"></i>}
+                        {disable ? "" : <i onClick={handleClick} className="fas fa-plus pointer"></i>}
                     </SecureContent>
 
                 </li>
