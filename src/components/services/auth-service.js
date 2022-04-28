@@ -33,3 +33,17 @@ export const adoptPlan = async (plan) => {
     return response.data;
 }
 
+export const lookup = async (_id) => {
+    const response = await api.get(`${API_URL}/user/${_id}`);
+    return response.data;
+}
+
+export const follow = async (user) => {
+    const response = await api.post(`${API_URL}/follow`, user);
+    return response;
+}
+
+export const unfollow = async (user) => {
+    const response = await api.post(`${API_URL}/unfollow`, user);
+    return response;
+}

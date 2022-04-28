@@ -65,7 +65,7 @@ const Details = () => {
                         setDbMeal({...dbMeal, liked: newLikes});
                     }
                 } else {
-                    const ourNewMeal = await ourMealService.addRecipe(meal)
+                    const ourNewMeal = await ourMealService.findRecipeById(meal.idMeal);
                     setDbMeal(ourNewMeal);
                 }
             } catch (e) {
@@ -84,7 +84,7 @@ const Details = () => {
                         <i title="Add to favorites" onClick={handleLikes} className={`fas fa-heart align-middle ${isLiked() ? "text-danger" : ""} me-1`}></i>
                         <span className="text-muted me-3"> {dbMeal && dbMeal.liked ? dbMeal.liked.length : 0}</span>
                         <SecureContent>
-                            <i title="Add to your plan" data-bs-toggle="modal" className="fas fa-calendar align-middle text-primary me-3"></i>
+                            <i title="Add to your plan" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="fas fa-calendar align-middle text-primary me-3"></i>
 
                             <i onClick={() => {navigate(`/posts?i=${meal.idMeal}`)}} title="Make a post" data-bs-toggle="tooltip" className="fas fa-plus align-middle me-2"></i>
                         </SecureContent>

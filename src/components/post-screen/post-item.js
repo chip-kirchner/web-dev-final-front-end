@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import * as action from "../actions/post-actions";
 import {useDispatch, useSelector} from "react-redux";
 import RecipeWidget from "./recipe-widget";
+import Verify from "./verify";
 
 const PostItem = ({post}) => {
     const profile = useSelector(state => state.profile);
@@ -33,9 +34,8 @@ const PostItem = ({post}) => {
             </span>
 
             <span className="mt-1">
-                <strong className="me-2">@{post.user.name}</strong>
-                -
-                {post.user.role === 'notPleb' ? <i className="fas fa-check text-primary ms-2 me-2"></i> : ""}
+                <strong className="me-1">@{post.user.name}</strong>
+                <Verify role={post.user.role}/>
             </span>
             <div className="mb-2">
                 {post.text}

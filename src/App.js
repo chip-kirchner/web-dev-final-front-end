@@ -15,6 +15,7 @@ import postReducer from "./components/reducers/post-reducer";
 import planReducer from "./components/reducers/plan-reducer";
 import profileReducer from "./components/reducers/profile-reducer";
 import PlanScreen from "./components/plan-screen";
+import PublicProfile from "./components/public-profile/public-profile";
 
 const reducer = combineReducers({
     posts: postReducer,
@@ -46,6 +47,7 @@ function App() {
                                           <Profile/>
                                       </SecureRoute>
                                   }/>
+                                  <Route path="/profile/:uid" element={<PublicProfile/>}/>
                                   <Route path="/favorites" element={
                                       <SecureRoute>
                                           <Favorites/>

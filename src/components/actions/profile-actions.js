@@ -7,7 +7,8 @@ export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const LOGOUT = "LOGOUT";
 export const LIKE = "LIKE";
 export const ADOPT_PLAN = "ADOPT_PLAN";
-export const PLAN_ADD_RECIPE = "PLAN_ADD_RECIPE";
+export const FOLLOW = "FOLLOW";
+export const UNFOLLOW = "UNFOLLOW";
 
 export const login = async (email, password, dispatch) => {
     try {
@@ -126,3 +127,27 @@ export const addMealToPlan = async (day, recipe, oldPlan, dispatch) => {
             return;
     }
 }
+
+export const follow = async (user, dispatch) => {
+    try {
+        await service.follow(user);
+        dispatch({
+            type: FOLLOW,
+            user
+        })
+    } catch (e) {
+        //
+    }
+};
+
+export const unfollow = async (user, dispatch) => {
+    try {
+        await service.unfollow(user);
+        dispatch({
+            type: UNFOLLOW,
+            user
+        })
+    } catch (e) {
+        //
+    }
+};
