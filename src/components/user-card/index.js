@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import Verify from "../post-screen/verify";
 import * as action from "../actions/profile-actions";
 
-const UserCard = ({user}) => {
+const UserCard = ({user, act = true}) => {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
     const [following, setFollowing] = useState(false);
@@ -28,7 +28,7 @@ const UserCard = ({user}) => {
     })
 
     return (
-        <li className="list-group-item d-flex align-items-center" key={user._id}>
+        <>
             <Link to={`/profile/${user._id}`} className="text-black"
                   style={{ textDecoration: 'none' }}>
                 <strong>@{user && user.name}</strong>
@@ -40,9 +40,9 @@ const UserCard = ({user}) => {
                 <div className="flex-grow-1 text-muted">
                     {user.following && user.following.filter(prof => prof._id === profile._id).length > 0 ? "(following you)" : ""}
                 </div>
-                <button onClick={handleUnfollow} className="btn btn-danger rounded-pill">{profile.following.filter(fol => fol._id === user._id).length > 0 ? "Unfollow" : "Follow"}</button>
+                {act && <button onClick={handleUnfollow} className="btn btn-danger rounded-pill">{profile.following.filter(fol => fol._id === user._id).length > 0 ? "Unfollow" : "Follow"}</button>}
             </SecureContent>
-        </li>
+        </>
     )
 
 }

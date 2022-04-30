@@ -44,7 +44,7 @@ const PublicProfile = () => {
 
     useEffect(() => {
         find();
-    }, [dispatch])
+    }, [dispatch, uid])
 
     if (prof) {
         return (

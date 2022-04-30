@@ -53,7 +53,7 @@ const PersonalProfile = () => {
                     <button onClick={handleLogout} className="btn btn-danger rounded-pill float-end">Logout</button>
                     <h1>Hi {profile && profile.name}!</h1>
                     <p className="lead">All of your info is included below.</p>
-                    <Link to={`/profile/${profile._id}`}>View your public profile.</Link>
+                    <Link to={`/profile/${profile && profile._id}`}>View your public profile.</Link>
                     <div className="mb-3 row">
                         <label htmlFor="showEmail" className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-10">

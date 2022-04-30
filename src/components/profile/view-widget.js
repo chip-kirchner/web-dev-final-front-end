@@ -34,7 +34,9 @@ const ViewWidget = ({view, user = null}) => {
             return(
                 <ul className="list-group mt-2">
                     {profile && user.following.map(user =>
-                        <UserCard user={user}/>
+                        <li className="list-group-item d-flex align-items-center" key={user._id}>
+                            <UserCard user={user}/>
+                        </li>
                     )}
                 </ul>
             )

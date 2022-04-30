@@ -1,7 +1,12 @@
 import {useLocation, Link} from "react-router-dom";
+import ModeratorContent from "../moderator-content";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 
 const Navigation = () => {
     const location = useLocation();
+    const profile = useSelector(state => state.profile);
+    const dispatch = useDispatch();
 
     return(
         <div className="list-group">
@@ -66,6 +71,17 @@ const Navigation = () => {
                     </div>
                 </div>
             </Link>
+            {profile && profile.role === "moderator" ?
+            <Link to="/users" className={`list-group-item-danger list-group-item list-group-item-action ${location.pathname === '/users' ? 'active' : ""}`}>
+                <div className="row">
+                    <div className="col-12 col-lg-3">
+                        <i className="fas fa-calendar me-3"></i>
+                    </div>
+                    <div className="d-none d-lg-block col-9 ">
+                        Users
+                    </div>
+                </div>
+            </Link> : "" }
         </div>
     )
 };

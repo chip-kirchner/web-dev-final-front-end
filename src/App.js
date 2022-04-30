@@ -9,19 +9,22 @@ import Home from "./components/home";
 import LoginScreen from "./components/login-screen";
 import Profile from "./components/profile";
 import SecureRoute from "./components/secure-route";
-import Favorites from "./components/favorites";
 import PostScreen from "./components/post-screen";
 import postReducer from "./components/reducers/post-reducer";
 import planReducer from "./components/reducers/plan-reducer";
 import profileReducer from "./components/reducers/profile-reducer";
+import userReducer from "./components/reducers/user-reducer";
 import PlanScreen from "./components/plan-screen";
 import PublicProfile from "./components/public-profile/public-profile";
+import UserScreen from "./components/user-screen";
 
 const reducer = combineReducers({
     posts: postReducer,
     plans: planReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    users: userReducer
 })
+
 const store = createStore(reducer);
 
 function App() {
@@ -50,6 +53,7 @@ function App() {
                                   <Route path="/profile/:uid" element={<PublicProfile/>}/>
                                   <Route path="/posts" element={<PostScreen/>}/>
                                   <Route path="/plans" element={<PlanScreen/>}/>
+                                  <Route path="/users" element={<UserScreen/>}/>
                               </Routes>
 
                       </div>
