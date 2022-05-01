@@ -41,6 +41,10 @@ const Search = () => {
         searchByName();
     }, []);
 
+
+    if(recipes === []) {
+        console.log("empty")
+    }
     return(
         <div className="row">
             <div className="col-lg-7 col-xl-8">

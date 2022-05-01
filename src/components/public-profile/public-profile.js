@@ -10,38 +10,42 @@ import ProfileTabs from "../profile/profile-tabs";
 
 const PublicProfile = () => {
     const dispatch = useDispatch();
-    const posts = useSelector(state => state.posts);
     const profile = useSelector(state => state.profile);
     const [isFollowing, setIsFollowing] = useState(false);
     const {uid} = useParams();
     const [prof, setProf] = useState(null);
 
-    const find = async () => {
-        if (uid) {
-            try {
-                const temp = await service.lookup(uid);
-                setProf(temp);
-                await postAction.getPosts(dispatch);
-                if (profile) {
-                    setIsFollowing(profile.following.filter(u => u._id === uid).length > 0)
-                }
-            } catch (e) {
-                setProf(null);
-            }
-        }
-    }
+
 
     const handleFollow = async () => {
         if (prof && isFollowing) {
             await action.unfollow(prof, dispatch);
             setIsFollowing(false);
+            const newProfile = {...prof, followedBy: prof.followedBy.filter(user => user._id !== profile._id)};
+            setProf(newProfile);
         } else {
             await action.follow(prof, dispatch);
             setIsFollowing(true);
+            const newProfile = {...prof, followedBy: [...prof.followedBy, profile]};
+            setProf(newProfile);
         }
     }
 
     useEffect(() => {
+        const find = async () => {
+            if (uid) {
+                try {
+                    const temp = await service.lookup(uid);
+                    setProf(temp);
+                    await postAction.getPosts(dispatch);
+                    if (profile) {
+                        setIsFollowing(profile.following.filter(u => u._id === uid).length > 0)
+                    }
+                } catch (e) {
+                    setProf(null);
+                }
+            }
+        }
         find();
     }, [dispatch, uid])
 
@@ -103,7 +107,7 @@ const PublicProfile = () => {
 
         );
     } else {
-        return (<h1>Not Found</h1>);
+        return (<h1>User not found!</h1>);
     }
 }
 export default PublicProfile;

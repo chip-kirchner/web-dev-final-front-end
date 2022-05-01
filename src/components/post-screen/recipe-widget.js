@@ -5,10 +5,10 @@ const RecipeWidget = ({recipe}) => {
     return(
         <>
             <Link to={`/details/${recipe.idMeal}`} style={{ textDecoration: 'none' }}
-                  className="text-black">
+                  className="text-black ">
                 <img src={recipe.strMealThumb} alt={recipe.strMeal} height={60}
                      className="rounded float-start me-2 border border-muted"/>
-                <div>
+                <div className="overflow-hidden text-nowrap text-truncate">
                     <strong>{recipe.strMeal}</strong>
                 </div>
 

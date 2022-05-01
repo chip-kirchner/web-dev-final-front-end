@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as service from "../services/our-meal-db-service";
 import {Link} from "react-router-dom";
-import FavoriteWidget from "../profile/favorite-widget";
 import RecipeWidget from "../post-screen/recipe-widget";
 
 const RecommendScreen = () => {
@@ -20,7 +19,7 @@ const RecommendScreen = () => {
 
     return (
         <div>
-            <h3>What others like</h3>
+            <h3>Popular Recipes</h3>
             <ul className="list-group">
                 {recommendations.map(recipe =>
                     <Link className="list-group-item list-group-item-action" to={`/details/${recipe.idMeal}`}>

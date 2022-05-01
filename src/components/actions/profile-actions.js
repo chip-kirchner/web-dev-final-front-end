@@ -19,7 +19,7 @@ export const login = async (email, password, dispatch) => {
             profile
         });
     } catch (e) {
-        throw e;
+        alert("Credentials do not match record");
     }
 }
 

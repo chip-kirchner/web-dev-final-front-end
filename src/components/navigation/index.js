@@ -1,13 +1,18 @@
-import {useLocation, Link} from "react-router-dom";
-import ModeratorContent from "../moderator-content";
+import {useLocation, Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {checkLoggedIn} from "../actions/profile-actions";
+import {checkLoggedIn, logout} from "../actions/profile-actions";
 
 const Navigation = () => {
     const location = useLocation();
     const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logout(dispatch);
+        navigate("/login");
+    }
 
     useEffect(() => {
         if (!profile) {
@@ -17,16 +22,29 @@ const Navigation = () => {
 
     return(
         <div className="list-group">
-            <div className="list-group-item bg-black text-white text-opacity-75">
-                <div className="row">
-                    <div className="col-12 col-lg-3">
-                        <i className="fas fa-bars me-3"></i>
-                    </div>
-                    <div className="d-none d-lg-block col-9 ">
-                        Menu
+            {profile ?
+                <div onClick={handleLogout} className="list-group-item list-group-item-action list-group-item-danger pointer">
+                    <div className="row">
+                        <div className="col-lg-3">
+                            <i className="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div className="d-none d-lg-block col-lg-9">
+                            Logout
+                        </div>
                     </div>
                 </div>
-            </div>
+                :
+                <div className="list-group-item bg-black text-white text-opacity-75">
+                    <div className="row">
+                        <div className="col-12 col-lg-3">
+                            <i className="fas fa-bars me-3"></i>
+                        </div>
+                        <div className="d-none d-lg-block col-9 ">
+                            Menu
+                        </div>
+                    </div>
+                </div>
+            }
             <Link to="/"
                   className={`list-group-item list-group-item-action ${location.pathname ==="/" ? 'active' : ""}`}>
                 <div className="row">

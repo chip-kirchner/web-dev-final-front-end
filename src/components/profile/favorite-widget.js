@@ -11,9 +11,12 @@ const FavoriteWidget = ({recipe}) => {
     }
 
     return(
-            <li className="list-group-item" key={recipe.idMeal}>
-                <button onClick={handleUnlike} title="Remove" className="btn btn-close float-end"></button>
-                <RecipeWidget recipe={recipe}/>
+            <li className="list-group-item d-flex" key={recipe.idMeal}>
+                <div className="flex-grow-1 overflow-hidden text-nowrap text-truncate">
+                    <RecipeWidget recipe={recipe}/>
+                </div>
+
+                <button onClick={handleUnlike} title="Remove" className="btn btn-close"></button>
             </li>
         )
 

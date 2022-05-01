@@ -6,6 +6,7 @@ import {getPlans} from "../actions/plan-actions";
 import {getPosts} from "../actions/post-actions";
 import React, {useEffect} from "react";
 import FavoriteWidget from "./favorite-widget";
+import RecipeWidget from "../post-screen/recipe-widget";
 
 const ViewWidget = ({view, user = null}) => {
     const profile = useSelector(state => state.profile);
@@ -61,9 +62,18 @@ const ViewWidget = ({view, user = null}) => {
         case 'favorites':
             return (
                 <ul className="list-group mt-2">
-                    {user.favoriteRecipes.map(recipe =>
-                        <FavoriteWidget recipe={recipe}/>
-                    )}
+                    {profile && profile === user ?
+                        user.favoriteRecipes.map(recipe =>
+                                <FavoriteWidget recipe={recipe}/>
+                            )
+                        :
+                        user.favoriteRecipes.map(recipe =>
+                            <li className="list-group-item" key={recipe.idMeal}>
+                                <RecipeWidget recipe={recipe}/>
+                            </li>
+                        )
+                    }
+
                 </ul>
             )
         default:
