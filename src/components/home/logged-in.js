@@ -3,10 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import PlanItem from "../plan-screen/plan-item";
 import PlannerContent from "../planner-content";
 import * as action from "../actions/plan-actions";
+import PostItem from "../post-screen/post-item";
 
 const LoggedIn = () => {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
+    const posts = useSelector(state => state.posts);
     const textRef = useRef();
 
     const myPlan = {...profile.plan, title: `${profile.name}'s Plan`, user: profile};
@@ -19,13 +21,26 @@ const LoggedIn = () => {
     return (
         <>
             <h1>Hi {profile.name}!</h1>
-            <p className="lead">Take a look at this week's plan below.</p>
-            <PlannerContent>
-                <button data-bs-toggle="modal" data-bs-target="#publish" className="btn btn-primary">Publish Plan</button>
-            </PlannerContent>
-            <div className="mt-2">
-                <PlanItem plan={myPlan} disable={true}/>
+            <div className="row">
+                <div className="col-xl-8">
+                    <h3>Your Plan!</h3>
+                    <PlannerContent>
+                        <button data-bs-toggle="modal" data-bs-target="#publish" className="btn btn-primary">Publish Plan</button>
+                    </PlannerContent>
+                    <div className="mt-2">
+                        <PlanItem plan={myPlan} disable={true}/>
+                    </div>
+                </div>
+                <div className="d-none d-xl-block col-xl-4">
+                    <h3>Your Posts!</h3>
+                    <div className="mt-2">
+                        {posts.filter(post => post.user._id === profile._id).map(post => <PostItem post={post}/>)}
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div className="modal fade" id="publish" data-bs-backdrop="static" data-bs-keyboard="false"
                  tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

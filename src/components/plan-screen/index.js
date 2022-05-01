@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import * as action from "../actions/plan-actions";
 import PlanItem from "./plan-item";
 import {useDispatch, useSelector} from "react-redux";
+import RecommendScreen from "../recommend-screen";
 
 const temp_plan = {
     "title": "A new plan",
@@ -38,14 +39,22 @@ const PlanScreen = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <p className="lead">Check out some plans from our verified meal-planners below!</p>
-            {
-                plans.map(plan => <div className="mb-2 p-2 border-bottom">
-                    <PlanItem plan={plan}/>
-                </div>)
-            }
-        </>
+        <div className="row">
+            <div className="col-xl-8">
+                <h1>Plans</h1>
+                <p className="lead">Check out some plans from our verified meal-planners below!</p>
+                {
+                    plans.map(plan => <div className="mb-2 p-2 border-bottom">
+                        <PlanItem plan={plan}/>
+                    </div>)
+                }
+            </div>
+            <div className="d-none d-xl-block col-xl-4 overflow-hidden text-nowrap text-truncate">
+                <RecommendScreen/>
+            </div>
+
+
+        </div>
 
     );
 };

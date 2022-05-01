@@ -40,9 +40,15 @@ const PlanItem = (
     return (
             <ul className="list-group">
                 <li key="name" className="list-group-item border-0 border-bottom d-flex justify-content-between align-items-center">
-                    <span><strong>{plan.title}</strong> {disable ? "" : <Link className="text-black"
-                                                                              style={{ textDecoration: 'none' }}
-                                                                              to={`/profile/${plan.user._id}`}>by @{plan.user.name}</Link>} </span>
+                    <span>{disable ? "" :
+                        <>
+                            <strong>{plan.title}</strong>
+                            <Link className="text-black"
+                                  style={{ textDecoration: 'none' }}
+                                  to={`/profile/${plan.user._id}`}>by @{plan.user.name}</Link>
+                        </>
+                        }
+                    </span>
                     <SecureContent>
                         <div>
                             {disable ? "" : <i onClick={handleClick} className="fas fa-plus pointer me-2"></i>}
@@ -54,70 +60,70 @@ const PlanItem = (
                 </li>
                 <li key="sunday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Sunday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.sunday ? plan.sunday : temp_recipe}/>
                         </div>
                     </div>
                 </li>
                 <li key="monday" className="list-group-item">
                 <div className="row">
-                    <div className="col-md-3 col-xl-2 fs-4">
+                    <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                         <strong>Monday</strong>
                     </div>
-                    <div className="col-md-9 col-xl-10">
+                    <div className="col-md-9 col-xl-9">
                         <RecipeWidget recipe={plan.monday ? plan.monday : temp_recipe}/>
                     </div>
                 </div>
                 </li>
                 <li key="tuesday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Tuesday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.tuesday ? plan.tuesday : temp_recipe}/>
                         </div>
                     </div>
                 </li>
                 <li key="wednesday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Wednesday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.wednesday ? plan.wednesday : temp_recipe}/>
                         </div>
                     </div>
                 </li>
                 <li key="thursday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Thursday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.thursday ? plan.thursday : temp_recipe}/>
                         </div>
                     </div>
                 </li>
                 <li key="friday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Friday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.friday ? plan.friday : temp_recipe}/>
                         </div>
                     </div>
                 </li>
                 <li key="saturday" className="list-group-item">
                     <div className="row">
-                        <div className="col-md-3 col-xl-2 fs-4">
+                        <div className="col-md-3 col-xl-3 fs-4 overflow-hidden text-nowrap text-truncate">
                             <strong>Saturday</strong>
                         </div>
-                        <div className="col-md-9 col-xl-10">
+                        <div className="col-md-9 col-xl-9">
                             <RecipeWidget recipe={plan.saturday ? plan.saturday : temp_recipe}/>
                         </div>
                     </div>
