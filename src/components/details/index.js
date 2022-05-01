@@ -93,15 +93,15 @@ const Details = () => {
                 </div>
             </div>
             <div className="row border-bottom rounded pb-2">
-                <div className="col-8">
+                <div className="col-lg-8 mb-2">
                     <img className="img-fluid rounded" src={meal.strMealThumb} alt={meal.strMeal}/>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4">
                     <ul className="list-group">
                         <li className="list-group-item bg-primary text-white">Ingredients</li>
                         {
                             ingredients.map(ind => {
-                                return (<li className="list-group-item font-weight-bold">{ind.amount} {ind.ingredient}</li>);
+                                return (<li className="list-group-item overflow-hidden text-nowrap text-truncate">{ind.amount} {ind.ingredient}</li>);
                             })
                         }
                     </ul>

@@ -46,7 +46,7 @@ const WritePost = () => {
 
     return (
         <div className="">
-            <div className="row m-2 border-bottom rounded">
+            <div className="row m-2 border-bottom rounded pb-2">
                 <div className="position-relative col-12">
                     <div className="">
                         @<strong>{profile.name}</strong>
