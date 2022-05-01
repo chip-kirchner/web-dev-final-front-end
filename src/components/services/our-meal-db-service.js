@@ -1,15 +1,51 @@
 import axios from 'axios';
+import * as authService from "./auth-service";
+const api = axios.create({withCredentials:  true});
 
 const API_MEAL = 'http://localhost:4000';
 
 export const findRecipeById = async (id) => {
-    const response = await axios.get(`${API_MEAL}/api/meals/${id}`);
-    if (response.status !== 404) {
+    try{
+        const response = await api.get(`${API_MEAL}/api/meals/${id}`);
         return response.data;
-    } else {
+    } catch (e) {
         return {};
     }
-
 };
 
-export const likeRecipe = () => {};
+export const likeRecipe = async (recipe) => {
+    // Get the loggedin profile
+    try {
+        const response = await api.put(`${API_MEAL}/api/like`, {recipe});
+        return response.status;
+    } catch (e) {
+        throw(e);
+    }
+};
+
+export const getFavorites = async () => {
+    try {
+        const response = await api.post(`${API_MEAL}/api/favorites`);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+}
+
+export const addRecipe = async (recipe) => {
+    try {
+        const response = await api.post(`${API_MEAL}/api/meals`, {recipe});
+        return response.data;
+    } catch(e) {
+        throw e;
+    }
+}
+
+export const findRecommend = async () => {
+    try {
+        const response = await api.get(`${API_MEAL}/api/recommended`);
+        return response.data
+    } catch (e) {
+        throw e;
+    }
+}
