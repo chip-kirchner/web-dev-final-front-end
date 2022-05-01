@@ -4,7 +4,6 @@ import * as action from "../actions/profile-actions";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import SecureContent from "../secure-content";
-import PostItem from "../post-screen/post-item";
 import * as postAction from "../actions/post-actions";
 import RecipeWidget from "../post-screen/recipe-widget";
 import ProfileTabs from "../profile/profile-tabs";

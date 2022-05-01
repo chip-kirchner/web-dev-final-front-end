@@ -40,3 +40,12 @@ export const addRecipe = async (recipe) => {
         throw e;
     }
 }
+
+export const findRecommend = async () => {
+    try {
+        const response = await api.get(`${API_MEAL}/api/recommended`);
+        return response.data
+    } catch (e) {
+        throw e;
+    }
+}

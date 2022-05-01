@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useParams, useNavigate, Link} from "react-router-dom";
 import * as mealService from "../services/recipe-service";
 import axios from "axios";
+import RecommendScreen from "../recommend-screen";
 
 
 const Search = () => {
@@ -42,7 +43,7 @@ const Search = () => {
 
     return(
         <div className="row">
-            <div className="col-9">
+            <div className="col-lg-7 col-xl-8">
                 <ul className="list-group">
                     <li className="list-group-item border-0 border-bottom">
                         <input ref={recipeSearchRef} className="form-control w-75 rounded-pill float-start" placeholder="Find something new!"></input>
@@ -91,8 +92,8 @@ const Search = () => {
                     }
                 </ul>
             </div>
-            <div className="col-3">
-                <h1>Recommend</h1>
+            <div className="d-none d-lg-block col-lg-5 col-xl-4">
+                <RecommendScreen/>
             </div>
         </div>
     );

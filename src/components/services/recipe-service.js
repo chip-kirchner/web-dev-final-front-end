@@ -8,8 +8,6 @@ export const findMealById = async (id) => {
     return meal.meals[0];
 };
 
-export const findMealByName = () => {};
-
 export const findRandomMeals = async () => {
     let responses = [];
     for (let i = 0; i < 3; i++) {

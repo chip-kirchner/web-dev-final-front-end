@@ -37,10 +37,12 @@ const UserCard = ({user, act = true}) => {
                 <Verify role={user.role}/>
             </div>
             <SecureContent>
-                <div className="flex-grow-1 text-muted">
-                    {user.following && user.following.filter(prof => prof._id === profile._id).length > 0 ? "(following you)" : ""}
+                <div className={`me-2 ms-2 text-muted flex-grow-1`}>
+                    {profile && user.following && user.following.filter(prof => prof === profile._id).length > 0 ? "(following you)" : ""}
                 </div>
-                {act && <button onClick={handleUnfollow} className="btn btn-danger rounded-pill">{profile.following.filter(fol => fol._id === user._id).length > 0 ? "Unfollow" : "Follow"}</button>}
+                <div className="float-end">
+                    {profile && act && <button onClick={handleUnfollow} className={`btn btn-${following ? 'danger' : 'primary'} rounded-pill`}>{profile.following.filter(fol => fol._id === user._id).length > 0 ? "Unfollow" : "Follow"}</button>}
+                </div>
             </SecureContent>
         </>
     )

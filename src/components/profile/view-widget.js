@@ -25,7 +25,7 @@ const ViewWidget = ({view, user = null}) => {
         case 'posts':
             return(
                 <ul className="list-group mt-2">
-                    {profile && posts.filter(post => post.user._id === user._id).map(post =>
+                    {posts.filter(post => post.user._id === user._id).map(post =>
                         <PostItem post={post}/>
                     )}
                 </ul>
@@ -33,7 +33,17 @@ const ViewWidget = ({view, user = null}) => {
         case 'following':
             return(
                 <ul className="list-group mt-2">
-                    {profile && user.following.map(user =>
+                    {user.following.map(user =>
+                        <li className="list-group-item d-flex align-items-center" key={user._id}>
+                            <UserCard user={user}/>
+                        </li>
+                    )}
+                </ul>
+            )
+        case 'followedby':
+            return(
+                <ul className="list-group mt-2">
+                    {user.followedBy.map(user =>
                         <li className="list-group-item d-flex align-items-center" key={user._id}>
                             <UserCard user={user}/>
                         </li>
@@ -43,7 +53,7 @@ const ViewWidget = ({view, user = null}) => {
         case 'plans':
             return (
                 <ul className="list-group mt-2">
-                    {profile && plans.filter(plan => plan.user._id === user._id).map(
+                    {plans.filter(plan => plan.user._id === user._id).map(
                         plan => <PlanItem plan={plan}/>
                     )}
                 </ul>
@@ -51,7 +61,7 @@ const ViewWidget = ({view, user = null}) => {
         case 'favorites':
             return (
                 <ul className="list-group mt-2">
-                    {profile && user.favoriteRecipes.map(recipe =>
+                    {user.favoriteRecipes.map(recipe =>
                         <FavoriteWidget recipe={recipe}/>
                     )}
                 </ul>

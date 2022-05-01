@@ -26,13 +26,14 @@ const UserScreen = () => {
     if (profile && profile.role === 'moderator') {
         return (
             <div className="row">
-                <div className="col-lg-7 col-xl-6">
+                <div className="col-lg-8 col-xl-7">
                     <h1 className="border-bottom">All Users</h1>
                     <ul className="list-group">
                         {users && users.map(user =>
                             <li className="list-group-item d-flex align-items-center" key={user._id}>
-                                <UserCard user={user} act={false}/>
-                                <button onClick={() => handleDelete(user)} className="btn btn-danger rounded-pill">Delete</button>
+                                    <UserCard user={user} act={false}/>
+                                    <span className="text-muted me-3 d-none d-md-block">{user.email}</span>
+                                    <button onClick={() => handleDelete(user)} className="btn btn-danger rounded-pill">Delete</button>
                             </li>
                         )}
                     </ul>

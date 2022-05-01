@@ -95,7 +95,7 @@ const PersonalProfile = () => {
 
                     <button className="btn btn-primary rounded-pill" onClick={handleUpdateProfile}>Save</button>
                 </div>
-                <ProfileTabs/>
+                {profile && <ProfileTabs/>}
             </div>
 
             <div className="col-xl-4 d-none d-xl-block">

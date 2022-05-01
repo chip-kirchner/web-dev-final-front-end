@@ -26,6 +26,10 @@ const ProfileTabs = ({user= null})=> {
         setView('following');
     }
 
+    const handleGoFollowedBy = (e) => {
+        setView('followedby');
+    }
+
     const handleGoFavorites = (e) => {
         setView('favorites');
     }
@@ -41,6 +45,9 @@ const ProfileTabs = ({user= null})=> {
                     </li>
                     <li className="nav-item pointer" onClick={handleGoFollowing}>
                         <div className={`nav-link ${view === 'following' ? 'active' : ''}`}>Following</div>
+                    </li>
+                    <li className="nav-item pointer" onClick={handleGoFollowedBy}>
+                        <div className={`nav-link ${view === 'followedby' ? 'active' : ''}`}>FollowedBy</div>
                     </li>
                     <li className="nav-item d-xl-none pointer" onClick={handleGoFavorites}>
                         <div className={`nav-link ${view === 'favorites' ? 'active' : ''}`}>Favorites</div>
