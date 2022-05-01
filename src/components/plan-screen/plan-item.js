@@ -46,7 +46,7 @@ const PlanItem = (
                     <SecureContent>
                         <div>
                             {disable ? "" : <i onClick={handleClick} className="fas fa-plus pointer me-2"></i>}
-                            {!disable && profile && plan.user._id === profile._id ?
+                            {!disable && profile && (plan.user._id === profile._id || profile.role === 'moderator') ?
                                 <button onClick={handleDelete} className="btn btn-close ms-2"></button> : ""}
                         </div>
                     </SecureContent>

@@ -2,11 +2,18 @@ import {useLocation, Link} from "react-router-dom";
 import ModeratorContent from "../moderator-content";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+import {checkLoggedIn} from "../actions/profile-actions";
 
 const Navigation = () => {
     const location = useLocation();
     const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!profile) {
+            checkLoggedIn(dispatch);
+        }
+    })
 
     return(
         <div className="list-group">

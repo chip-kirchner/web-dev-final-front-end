@@ -54,7 +54,8 @@ const PostItem = ({post}) => {
                 {post.text}
             </div>
             <SecureContent>
-                {profile && profile._id === post.user._id? <button onClick={handleDelete} className="btn btn-close float-end"></button> : ""}
+                {profile && (profile._id === post.user._id || profile.role === 'moderator') ?
+                    <button onClick={handleDelete} className="btn btn-close float-end"></button> : ""}
             </SecureContent>
             <div className="mb-2 ">
                 <RecipeWidget recipe={post.recipe}/>

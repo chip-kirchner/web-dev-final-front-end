@@ -5,18 +5,18 @@ import * as action from "./actions/profile-actions";
 const SecureContent = ({children}) => {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
-    const [currentUser, setCurrentUser] = useState()
 
-    const check = async () => {
+    useEffect(() => {
+        const check = async () => {
         if(!profile) {
             try {
-                const user = await action.checkLoggedIn(dispatch);
-                setCurrentUser(user)
+                await action.checkLoggedIn(dispatch);
             } catch (e) {
             }
         }
     }
-    useEffect(() => { check() }, [profile])
+    check();
+        }, [profile, dispatch])
 
     if(profile) {
         return children
