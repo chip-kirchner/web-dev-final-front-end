@@ -41,9 +41,9 @@ export const checkLoggedIn = async (dispatch) => {
     }
 }
 
-export const signup = async (email, password, dispatch) => {
+export const signup = async (email, password, name, role, dispatch) => {
     try {
-        const profile = await service.signup(email, password);
+        const profile = await service.signup(email, password, name, role);
         dispatch({
             type: SET_PROFILE,
             profile

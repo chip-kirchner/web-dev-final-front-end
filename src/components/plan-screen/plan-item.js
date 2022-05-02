@@ -43,7 +43,7 @@ const PlanItem = (
                     <span>{disable ? "" :
                         <>
                             <strong>{plan.title}</strong>
-                            <Link className="text-black"
+                            <Link className="text-black ms-1"
                                   style={{ textDecoration: 'none' }}
                                   to={`/profile/${plan.user._id}`}>by @{plan.user.name}</Link>
                         </>

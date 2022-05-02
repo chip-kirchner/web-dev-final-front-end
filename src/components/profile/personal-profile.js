@@ -73,19 +73,19 @@ const PersonalProfile = () => {
                         <label htmlFor="showRole" className="col-sm-2 col-form-label">Role</label>
                         <div className="col-sm-10">
                             <div className="form-check">
-                                <input className="form-check-input" onChange={handleRoleChange}
+                                <input className="form-check-input" disabled
                                        type="radio" id="standard"
                                        value="standard" checked={newProfile && newProfile.role === "standard"}></input>
                                 <label htmlFor="standard" className="form-check-label">Standard</label>
                             </div>
                             <div className="form-check">
-                                <input className="form-check-input" onChange={handleRoleChange}
+                                <input className="form-check-input" disabled
                                        type="radio" id="planner"
                                        value="planner" checked={newProfile && newProfile.role === "planner"}></input>
                                 <label htmlFor="planner" className="form-check-label">Planner</label>
                             </div>
                             <div className="form-check">
-                                <input className="form-check-input" onChange={handleRoleChange}
+                                <input className="form-check-input" disabled
                                        type="radio" id="moderator"
                                        value="moderator" checked={newProfile && newProfile.role === "moderator"}></input>
                                 <label htmlFor="moderator" className="form-check-label">Moderator</label>
