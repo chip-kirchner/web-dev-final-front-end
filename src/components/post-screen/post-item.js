@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import * as action from "../actions/post-actions";
 import {useDispatch, useSelector} from "react-redux";
 import RecipeWidget from "./recipe-widget";

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import LoggedIn from "./logged-in";
 import NotLoggedIn from "./not-loggedin";
 import {useDispatch, useSelector} from "react-redux";

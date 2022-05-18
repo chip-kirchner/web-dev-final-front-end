@@ -25,7 +25,7 @@ const UserCard = ({user, act = true}) => {
         if (profile) {
             setFollowing(profile.following.filter(fol => fol._id === user._id).length > 0);
         }
-    })
+    }, [profile, user._id])
 
     return (
         <>

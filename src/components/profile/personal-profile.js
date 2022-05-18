@@ -1,9 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as action from "../actions/profile-actions";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import FavoriteWidget from "./favorite-widget";
-import ViewWidget from "./view-widget";
 import ProfileTabs from "./profile-tabs";
 
 const PersonalProfile = () => {
@@ -13,12 +12,7 @@ const PersonalProfile = () => {
     const navigate = useNavigate();
 
     const handleUpdateProfile = async () => {
-        const response = await action.updateProfile(newProfile, dispatch);
-    }
-
-    const handleRoleChange = (e) => {
-        const newRole = e.target.value;
-        setNewProfile({...newProfile, role: newRole});
+        await action.updateProfile(newProfile, dispatch);
     }
 
     const handleNameChange = (e) => {
@@ -31,20 +25,17 @@ const PersonalProfile = () => {
         navigate("/login");
     }
 
-
-
-    const load = async () => {
-        if (profile) {
-            setNewProfile(profile);
-        } else {
-            navigate("/login");
-        }
-    }
-
     useEffect(() => {
+        const load = async () => {
+            if (profile) {
+                setNewProfile(profile);
+            } else {
+                navigate("/login");
+            }
+        }
         load();
         //console.log("effect")
-    }, [dispatch, profile]);
+    }, [dispatch, profile, navigate]);
 
     return (
         <div className="row">

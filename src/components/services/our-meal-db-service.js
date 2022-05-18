@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as authService from "./auth-service";
 const api = axios.create({withCredentials:  true});
 
 const API_MEAL = 'http://localhost:4000';
@@ -22,15 +21,6 @@ export const likeRecipe = async (recipe) => {
         throw(e);
     }
 };
-
-export const getFavorites = async () => {
-    try {
-        const response = await api.post(`${API_MEAL}/api/favorites`);
-        return response.data;
-    } catch (e) {
-        throw e;
-    }
-}
 
 export const addRecipe = async (recipe) => {
     try {

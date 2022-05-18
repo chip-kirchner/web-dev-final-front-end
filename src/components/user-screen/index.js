@@ -21,7 +21,7 @@ const UserScreen = () => {
         if(!profile) {
             checkLoggedIn(dispatch);
         }
-    }, [dispatch])
+    }, [dispatch, profile, users])
 
     if (profile && profile.role === 'moderator') {
         return (

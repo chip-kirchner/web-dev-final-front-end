@@ -1,4 +1,3 @@
-import React from "react";
 import * as service from "../services/auth-service";
 import * as mealService from "../services/our-meal-db-service";
 
@@ -126,6 +125,8 @@ export const addMealToPlan = async (day, recipe, oldPlan, dispatch) => {
         case "sunday":
             await adoptPlan({...oldPlan, sunday: recipe}, dispatch);
             return;
+        default:
+            return null;
     }
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import PostItem from "./post-item";
 import WritePost from "./write-post";
 import {useDispatch, useSelector} from "react-redux";

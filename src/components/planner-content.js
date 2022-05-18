@@ -7,19 +7,20 @@ const PlannerContent = ({children}) => {
     const profile = useSelector(state => state.profile);
     const [currentUser, setCurrentUser] = useState()
 
-    const check = async () => {
-        if (profile) {
-            setCurrentUser(profile);
-        } else {
-            try {
-                const user = await action.checkLoggedIn(dispatch);
-                setCurrentUser(user)
-            } catch (e) {
+    useEffect(() => {
+        const check = async () => {
+            if (profile) {
+                setCurrentUser(profile);
+            } else {
+                try {
+                    const user = await action.checkLoggedIn(dispatch);
+                    setCurrentUser(user)
+                } catch (e) {
+                }
             }
-        }
-
-    }
-    useEffect(() => { check() }, [])
+        };
+        check();
+    }, [dispatch, profile])
 
     if(currentUser && currentUser.role === "planner") {
         return children

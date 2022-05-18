@@ -39,7 +39,7 @@ const Search = () => {
 
     useEffect(() => {
         searchByName();
-    }, []);
+    });
 
 
     if(recipes === []) {

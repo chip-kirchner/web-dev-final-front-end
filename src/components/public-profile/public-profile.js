@@ -47,7 +47,7 @@ const PublicProfile = () => {
             }
         }
         find();
-    }, [dispatch, uid])
+    }, [dispatch, uid, profile])
 
     if (prof) {
         return (

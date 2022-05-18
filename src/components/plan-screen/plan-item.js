@@ -20,8 +20,8 @@ const temp_recipe = {
 
 const PlanItem = (
     {
-        plan: plan,
-        disable: disable = false
+        plan,
+        disable = false
     }
 ) => {
     const dispatch = useDispatch();

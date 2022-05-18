@@ -7,7 +7,7 @@ import RecipeWidget from "./recipe-widget";
 import {useDispatch, useSelector} from "react-redux";
 
 const WritePost = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [postRecipe, setPostRecipe] = useState();
     const profile = useSelector(state => state.profile);
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const WritePost = () => {
 
     useEffect(() => {
         getInfo();
-    }, [])
+    })
 
     if (recipeID === null) {
         return null;
