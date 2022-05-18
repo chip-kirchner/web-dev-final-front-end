@@ -100,7 +100,7 @@ const Navigation = () => {
             <Link to="/users" className={`list-group-item-danger list-group-item list-group-item-action ${location.pathname === '/users' ? 'active' : ""}`}>
                 <div className="row">
                     <div className="col-12 col-lg-3">
-                        <i className="fas fa-calendar me-3"></i>
+                        <i className="fas fa-users me-3"></i>
                     </div>
                     <div className="d-none d-lg-block col-9 ">
                         Users
